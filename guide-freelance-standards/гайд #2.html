@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайд: Создание и Продажа Цифровых Продуктов (VIP)</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение Google Fonts: Inter (основной) и Montserrat (для заголовков) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1f2937 0%, #000000 100%); /* Глубокий, темный градиент */
+            color: #d1d5db; /* Светлый текст для контраста */
+            line-height: 1.75;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            position: relative;
+        }
+        /* Subtle diagonal lines pattern in the background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(45deg, rgba(55, 65, 81, 0.1) 25%, transparent 25%, transparent 75%, rgba(55, 65, 81, 0.1) 75%, rgba(55, 65, 81, 0.1) 100%),
+                              linear-gradient(45deg, rgba(55, 65, 81, 0.1) 25%, transparent 25%, transparent 75%, rgba(55, 65, 81, 0.1) 75%, rgba(55, 65, 81, 0.1) 100%);
+            background-size: 80px 80px; /* Size of the pattern */
+            background-position: 0 0, 40px 40px; /* Offset for second pattern layer */
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* Animated Section on Scroll */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: rgba(30, 41, 59, 0.7); /* Dark semi-transparent background */
+            backdrop-filter: blur(10px); /* Stronger blur effect */
+            border-radius: 2rem; /* Very rounded corners */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(99, 102, 241, 0.15); /* Deeper shadow with subtle indigo glow */
+            padding: 2rem; /* Adjusted for mobile */
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, background-color 0.4s ease-in-out;
+            border: 1px solid rgba(79, 70, 229, 0.2); /* Indigo border */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .card {
+                padding: 3.5rem;
+            }
+        }
+        .card:hover {
+            transform: translateY(-8px); /* More pronounced lift on hover */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.25);
+            background-color: rgba(30, 41, 59, 0.8); /* Slightly more opaque on hover */
+        }
+
+        /* Input Field Styles */
+        input[type="text"], input[type="number"], textarea {
+            border-radius: 1rem; /* Rounded */
+            padding: 0.8rem 1.2rem; /* Adjusted for mobile */
+            border: 1px solid rgba(156, 163, 175, 0.3);
+            background-color: rgba(55, 65, 81, 0.7); /* Darker semi-transparent background */
+            color: #e5e7eb; /* Light text color */
+            transition: all 0.3s ease-in-out;
+            font-size: 0.95rem; /* Adjusted for mobile */
+            width: 100%; /* Ensure full width */
+        }
+        @media (min-width: 768px) {
+            input[type="text"], input[type="number"], textarea {
+                padding: 1rem 1.5rem;
+                font-size: 1.05rem;
+            }
+        }
+        input::placeholder {
+            color: #9ca3af; /* Lighter placeholder */
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            outline: none;
+            border-color: #6366f1; /* Indigo focus */
+            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.3);
+            background-color: rgba(55, 65, 81, 0.9);
+        }
+
+        /* Button Styles */
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 2rem; /* Adjusted for mobile */
+            border-radius: 1rem;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            width: 100%; /* Full width by default on mobile */
+        }
+        @media (min-width: 768px) {
+            button {
+                padding: 1.1rem 2.5rem;
+                width: auto; /* Auto width on larger screens */
+            }
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #6366f1 0%, #818cf8 100%); /* Indigo gradient */
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #4f46e5 0%, #6366f1 100%);
+            box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
+            transform: translateY(-3px) scale(1.02);
+        }
+        .btn-telegram {
+            background: linear-gradient(45deg, #2563eb 0%, #3b82f6 100%); /* Stronger blue Telegram gradient */
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+            padding: 1.2rem 2.5rem; /* Adjusted for mobile */
+            font-size: 1.5rem; /* Adjusted for mobile */
+        }
+        @media (min-width: 768px) {
+            .btn-telegram {
+                padding: 1.5rem 3.5rem;
+                font-size: 2rem;
+            }
+        }
+        .animate-bounce-subtle {
+            animation: bounce-subtle 2s infinite;
+        }
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Progress Circle Styles */
+        .progress-circle {
+            position: relative;
+            width: 120px; /* Adjusted for mobile */
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#34d399 0%, #10b981 var(--progress), rgba(255, 255, 255, 0.1) var(--progress), rgba(255, 255, 255, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2), 0 8px 25px rgba(0,0,0,0.25);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+        @media (min-width: 768px) {
+            .progress-circle {
+                width: 160px;
+                height: 160px;
+            }
+        }
+        .progress-circle::after {
+            content: '';
+            position: absolute;
+            width: 100px; /* Adjusted */
+            height: 100px;
+            border-radius: 50%;
+            background: #1f2937; /* Dark background of the inner circle */
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 768px) {
+            .progress-circle::after {
+                width: 130px;
+                height: 130px;
+            }
+        }
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            font-size: 2rem; /* Adjusted */
+            font-weight: 800;
+            color: #34d399; /* Green color for progress */
+        }
+        @media (min-width: 768px) {
+            .progress-circle span {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Custom Alert/Toast Styles */
+        .custom-alert {
+            animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.5rem; /* Adjusted for mobile */
+            min-width: 250px; /* Minimum width */
+            max-width: 90%; /* Max width relative to viewport */
+        }
+        @media (min-width: 768px) {
+            .custom-alert {
+                padding: 1.2rem 2rem;
+                min-width: 300px;
+                max-width: 400px;
+            }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-80px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #6366f1; /* Indigo spinner */
+            border-radius: 50%;
+            width: 22px; /* Adjusted */
+            height: 22px; /* Adjusted */
+            animation: spin 1s linear infinite;
+        }
+        @media (min-width: 768px) {
+            .spinner {
+                width: 26px;
+                height: 26px;
+            }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 lg:p-12">
+
+    <div class="max-w-5xl mx-auto bg-gray-900 shadow-2xl rounded-2xl md:rounded-3xl overflow-hidden my-8 md:my-12 p-6 md:p-10 lg:p-16 border border-gray-800">
+
+        <!-- Header -->
+        <header class="text-center mb-16 md:mb-20 animated-section">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-100">
+                Создание и Продажа Цифровых Продуктов: <br><span class="gradient-text bg-gradient-to-r from-purple-400 to-indigo-400 text-3xl md:text-5xl lg:text-6xl">VIP Уровень</span>
+            </h1>
+            <p class="mt-6 md:mt-8 text-xl md:text-2xl lg:text-3xl text-gray-400">
+                Ваш ключ к масштабированию и автоматизации прибыли.
+            </p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-indigo-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-4 md:mr-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Превратите свои знания в актив!
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Если вы уже создали свой первый цифровой продукт или у вас есть четкая ниша, в которой вы хотите преуспеть, этот **VIP Гайд** поможет вам выйти на новый уровень. Мы сфокусируемся на углубленном анализе рынка, создании высокоценных продуктов и эффективных стратегиях их продвижения для максимальной прибыли.
+                </p>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed">
+                    Научитесь строить аудиторию, автоматизировать продажи и масштабировать свой инфобизнес, чтобы получать стабильный пассивный доход.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 1: Глубокий Анализ Рынка и Валидация Ниши -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-gray-800 to-black">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-4 md:mr-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Глубокий Анализ: Где Скрыта Настоящая Прибыль
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Прежде чем создавать, тщательно исследуйте. Этот шаг отделит успешные продукты от тех, что останутся незамеченными.
+                </p>
+                <ul class="list-none space-y-6 text-base md:text-lg text-gray-200 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-yellow-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Анализ конкурентов:</span> Не просто кто есть, а что они делают, что работает, а что нет. Ищите "пробелы" и возможности для улучшения.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-green-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Глубокое изучение ЦА:</span> Проводите опросы, интервью, анализируйте запросы в поисковиках и вопросы на форумах. Поймите их боль досконально.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-cyan-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Валидация идеи:</span> Тестируйте спрос, прежде чем инвестировать время в создание. Это может быть мини-опрос, предпродажа или создание MVP (минимально жизнеспособного продукта).
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Создание Высокоценных Цифровых Продуктов -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-indigo-900 to-black">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-indigo-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-4 md:mr-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Продукт VIP-Уровня: Качество и Уникальность
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Ваш продукт должен не просто давать информацию, а приносить трансформацию и реальную ценность.
+                </p>
+                <ul class="list-none space-y-6 text-base md:text-lg text-gray-200 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-teal-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Создание "трансформационного" контента:</span> Сфокусируйтесь на том, как ваш продукт изменит жизнь клиента, а не просто даст ему информацию. Пошаговые планы, практические упражнения, шаблоны.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-orange-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Мультиформатность:</span> Комбинируйте текст с видео, аудио, интерактивными элементами. Это повышает ценность и вовлеченность.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-pink-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Премиум-дизайн:</span> Вложитесь в профессиональное оформление продукта. Визуальное восприятие критически важно для ценности.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Аудитория и Продвижение -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-cyan-900 to-black">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-cyan-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-4 md:mr-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Магнит для Клиентов: VIP-Продвижение
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Ваш продукт великолепен, но как о нем узнают тысячи людей? Активное привлечение аудитории — ваш путь к масштабу.
+                </p>
+                <ul class="list-none space-y-6 text-base md:text-lg text-gray-200 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-blue-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Контент-маркетинг для привлечения:</span> Создавайте полезный контент (статьи, посты), который решает проблемы ЦА и продвигает ваш продукт как решение.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-green-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Партнерский маркетинг:</span> Сотрудничайте с блогерами, лидерами мнений, другими инфобизнесменами для совместного продвижения.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-red-500 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Email-маркетинг:</span> Собирайте базу подписчиков и выстраивайте с ними долгосрочные отношения, предлагая ценность и продавая продукты.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Interactive: AI-Powered Pricing & Marketing Channel Suggestor -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-emerald-900 to-black">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-green-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    VIP Инструмент: ИИ-Анализатор Цен и Каналов Продаж!
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Получите рекомендации по оптимальному ценообразованию и наиболее эффективным каналам продвижения для вашего цифрового продукта, основанные на ИИ-анализе.
+                </p>
+                <div class="bg-gray-800 p-6 md:p-10 rounded-2xl shadow-inner mb-8 md:mb-10">
+                    <label for="productDesc" class="block text-gray-300 text-lg md:text-xl font-semibold mb-4">Краткое описание вашего цифрового продукта (что это, для кого, какую проблему решает):</label>
+                    <textarea id="productDesc" rows="4" placeholder="Например: 'Электронная книга для новичков по инвестициям в криптовалюту, помогает избежать типичных ошибок и начать с минимальным риском'." class="w-full text-base md:text-lg"></textarea>
+                    
+                    <button id="analyzeProductBtn" class="btn-primary w-full mt-6 md:mt-8 animate-bounce-subtle">
+                        <span id="analyzeBtnText">АНАЛИЗИРОВАТЬ И ПРОГНОЗИРОВАТЬ</span>
+                        <div id="analyzeBtnSpinner" class="hidden spinner ml-3 md:ml-4"></div>
+                    </button>
+                </div>
+
+                <div id="analysisOutput" class="bg-gray-900 p-6 md:p-10 rounded-2xl shadow-2xl mt-8 md:mt-12 hidden animated-section">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400 mb-6 md:mb-8">Ваши VIP-рекомендации:</h3>
+                    <div id="analysisContent" class="text-base md:text-lg text-gray-200 leading-relaxed space-y-4 md:space-y-6">
+                        <!-- Analysis results will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Motivational Speech -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-r from-blue-900 to-purple-900">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-indigo-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-4 md:mr-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваш Цифровой Успех Неизбежен!
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Вы теперь вооружены знаниями, которые превратят ваши идеи в прибыльные цифровые активы. Создавайте, автоматизируйте и масштабируйте. Помните: качество, ценность и эффективное продвижение — ваши главные союзники. Этот гайд дал вам VIP-ключи. Теперь постройте свою цифровую империю!
+                </p>
+                <div class="text-center mt-8 md:mt-10">
+                    <div class="progress-circle mx-auto" style="--progress: 90%;">
+                        <span>90%</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 text-lg md:text-xl font-bold">
+                        90% вашего VIP-успеха – это продуманная стратегия!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Telegram Channel Promotion & Copyright -->
+        <footer class="text-center pt-12 md:pt-16 border-t-2 border-gray-700 mt-16 md:mt-20 animated-section">
+            <p class="text-xl md:text-2xl lg:text-3xl font-bold text-gray-200 mb-6">
+                Присоединяйтесь к Мастерам Цифровых Продуктов!
+            </p>
+            <p class="text-base md:text-lg text-gray-400 mb-8">
+                Получайте эксклюзивные советы, новые инсайты и становитесь частью процветающего сообщества.
+            </p>
+            <a href="https://t.me/dropshop234" target="_blank" class="inline-block btn-telegram text-white text-xl md:text-2xl px-8 py-4 rounded-full font-extrabold shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 animate-bounce-subtle">
+                <svg class="w-7 h-7 md:w-8 md:h-8 mr-3 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.999 12c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7 7-3.13 7-7zm-7.25 4.71l-5.69-2.22c-.41-.16-.41-.57 0-.73l12.87-5.02c.3-.12.55.15.35.43L13 14.88c-.2.27-.37.49-.64.55l-2.61.52c-.52.1-.53-.13 0-.25l2.64-1.92c.2-.14.3-.39.22-.64l-.9-2.8c-.1-.3-.42-.36-.61-.15l-1.8 1.54z"></path></svg>
+                Мой Telegram-канал
+            </a>
+            <p class="mt-10 text-sm text-gray-500">
+                Все права защищены. <span class="font-bold text-gray-400">© [Jesus/DropShop] [2025 год]</span>.
+                Этот гайд является моей интеллектуальной собственностью.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Smooth scroll animation for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations (sections fading in)
+        const animatedSections = document.querySelectorAll('.animated-section');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1 // Section becomes visible when 10% of it is in view
+        });
+
+        animatedSections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Custom Alert/Toast Function
+        function alertUser(message, type = 'info') {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                clearTimeout(existingAlert.dataset.timeoutId);
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = 'fixed top-8 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-2xl z-50 transition-all duration-500 transform custom-alert flex items-center justify-between';
+            
+            let iconSvg = '';
+            if (type === 'success') {
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-green-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>';
+            } else if (type === 'error') {
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-red-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>';
+            } else { // info
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-blue-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>';
+            }
+
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    ${iconSvg}
+                    <p class="text-lg font-medium text-white">${message}</p>
+                </div>
+                <button class="ml-4 text-white text-3xl font-bold p-1 leading-none hover:text-gray-400 transition-colors" onclick="document.getElementById('customAlert').remove()">
+                    &times;
+                </button>
+            `;
+            document.body.appendChild(alertDiv);
+
+            const timeoutId = setTimeout(() => {
+                alertDiv.remove();
+            }, 4000); // Remove after 4 seconds
+            alertDiv.dataset.timeoutId = timeoutId;
+        }
+
+        // AI-Powered Pricing & Marketing Channel Suggestor Logic
+        const analyzeProductBtn = document.getElementById('analyzeProductBtn');
+        const analyzeBtnText = document.getElementById('analyzeBtnText');
+        const analyzeBtnSpinner = document.getElementById('analyzeBtnSpinner');
+        const analysisOutput = document.getElementById('analysisOutput');
+        const analysisContent = document.getElementById('analysisContent');
+        const productDescInput = document.getElementById('productDesc');
+
+        analyzeProductBtn.addEventListener('click', async () => {
+            const productDesc = productDescInput.value.trim();
+            if (!productDesc) {
+                alertUser("Пожалуйста, опишите ваш цифровой продукт для анализа.", 'error');
+                return;
+            }
+
+            analyzeBtnText.textContent = 'АНАЛИЗИРУЕМ...';
+            analyzeBtnSpinner.classList.remove('hidden');
+            analyzeProductBtn.disabled = true;
+            analyzeProductBtn.classList.add('animate-bounce-subtle');
+
+            try {
+                let chatHistory = [];
+                const prompt = `Для цифрового продукта, описанного как '${productDesc}', предложи:
+                1. Оптимальную ценовую стратегию (например, "единовременная покупка", "подписка", "многоуровневая").
+                2. Рекомендуемую стартовую цену (укажите диапазон).
+                3. 3-4 наиболее эффективных канала маркетинга и продвижения (без TikTok и YouTube), объясняя, почему они подходят для этого продукта.
+                Формат ответа строго в JSON массиве объектов, где каждый объект содержит:
+                - "strategy": (строка) название ценовой стратегии.
+                - "priceRange": (строка) рекомендуемый диапазон цен.
+                - "marketingChannels": (массив объектов) каждый объект имеет ключи "name" (строка, название канала) и "reason" (строка, обоснование).`;
+                
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "strategy": { "type": "STRING" },
+                                    "priceRange": { "type": "STRING" },
+                                    "marketingChannels": {
+                                        type: "ARRAY",
+                                        items: {
+                                            type: "OBJECT",
+                                            properties: {
+                                                "name": { "type": "STRING" },
+                                                "reason": { "type": "STRING" }
+                                            }
+                                        }
+                                    }
+                                },
+                                "propertyOrdering": ["strategy", "priceRange", "marketingChannels"]
+                            }
+                        }
+                    }
+                };
+                const apiKey = "AIzaSyCESsXjC52VYBP0bBqFxBIpW5_ulB3LwEQ"; // Canvas will provide this at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log("API Response for Product Analyzer:", result);
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+
+                    const jsonString = result.candidates[0].content.parts[0].text;
+                    console.log("Parsed JSON string (Product Analyzer):", jsonString);
+
+                    try {
+                        const parsedJson = JSON.parse(jsonString);
+                        console.log("Parsed JSON object (Product Analyzer):", parsedJson);
+
+                        analysisContent.innerHTML = ''; // Clear previous ideas
+                        if (Array.isArray(parsedJson) && parsedJson.length > 0) {
+                            parsedJson.forEach(analysis => {
+                                const analysisDiv = document.createElement('div');
+                                analysisDiv.className = 'mb-4 p-4 bg-gray-800 rounded-xl shadow-md';
+                                analysisDiv.innerHTML = `
+                                    <h4 class="font-bold text-yellow-300 text-xl md:text-2xl lg:text-3xl mb-2">Стратегия: ${analysis.strategy}</h4>
+                                    <p class="text-gray-300 text-base md:text-lg mb-3"><strong>Диапазон цен:</strong> ${analysis.priceRange}</p>
+                                    <p class="font-semibold text-gray-400 mb-2">Рекомендуемые каналы продвижения:</p>
+                                    <ul class="list-disc list-inside ml-4 text-base md:text-lg text-gray-200">
+                                        ${analysis.marketingChannels.map(channel => `
+                                            <li>
+                                                <strong>${channel.name}:</strong> ${channel.reason}
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                `;
+                                analysisContent.appendChild(analysisDiv);
+                            });
+                            analysisOutput.classList.remove('hidden');
+                            analysisOutput.classList.add('is-visible');
+                            alertUser("Анализ продукта завершен!", 'success');
+                        } else {
+                            analysisContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Не удалось сгенерировать рекомендации в ожидаемом формате. Попробуйте еще раз.</p>';
+                            analysisOutput.classList.remove('hidden');
+                            analysisOutput.classList.add('is-visible');
+                            alertUser("Не удалось сгенерировать рекомендации. Попробуйте еще раз.", 'error');
+                        }
+
+                    } catch (parseError) {
+                        console.error("JSON parsing error (Product Analyzer):", parseError);
+                        analysisContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Ошибка при обработке полученных данных. Попробуйте еще раз.</p>';
+                        analysisOutput.classList.remove('hidden');
+                        analysisOutput.classList.add('is-visible');
+                        alertUser("Ошибка обработки данных. Пожалуйста, попробуйте еще раз.", 'error');
+                    }
+
+                } else {
+                    console.error("Unexpected API response structure (Product Analyzer):", result);
+                    analysisContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Не удалось получить рекомендации. Структура ответа ИИ не соответствует ожидаемой.</p>';
+                    analysisOutput.classList.remove('hidden');
+                    analysisOutput.classList.add('is-visible');
+                    alertUser("Не удалось получить рекомендации. Попробуйте еще раз.", 'error');
+                }
+
+            } catch (error) {
+                console.error("Error generating product analysis:", error);
+                analysisContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Произошла ошибка при генерации рекомендаций. Проверьте ваше соединение или попробуйте позже.</p>';
+                analysisOutput.classList.remove('hidden');
+                analysisOutput.classList.add('is-visible');
+                alertUser("Ошибка генерации рекомендаций. Пожалуйста, попробуйте позже.", 'error');
+            } finally {
+                analyzeBtnText.textContent = 'АНАЛИЗИРОВАТЬ И ПРОГНОЗИРОВАТЬ';
+                analyzeBtnSpinner.classList.add('hidden');
+                analyzeProductBtn.disabled = false;
+                analyzeProductBtn.classList.remove('animate-bounce-subtle');
+            }
+        });
+
+        // Initial setup on window load
+        window.onload = function() {
+            // Observe sections for scroll animations
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        };
+    </script>
+</body>
+</html>

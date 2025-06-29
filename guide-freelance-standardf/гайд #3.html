@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЭЛИТНЫЙ ГАЙД: АРХИТЕКТОР ФРИЛАНС-ИМПЕРИИ</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение Google Fonts: Montserrat (для заголовков), Inter (основной) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%); /* Глубокий, почти черный градиент */
+            color: #cbd5e1; /* Светло-серый текст для контраста */
+            line-height: 1.8;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            position: relative;
+        }
+        /* Geometric background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(to right, rgba(100, 116, 139, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(100, 116, 139, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px; /* Adjust grid size */
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+        }
+        .text-glow {
+            text-shadow: 0 0 8px rgba(139, 92, 246, 0.6), 0 0 15px rgba(139, 92, 246, 0.4); /* Фиолетовое свечение текста */
+        }
+        .subtle-shadow {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Мягкая тень для читаемости на градиенте */
+        }
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* Animated Section on Scroll */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: rgba(30, 41, 59, 0.7); /* Dark semi-transparent background */
+            backdrop-filter: blur(12px); /* Stronger blur effect */
+            border-radius: 2.5rem; /* Max rounded corners */
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.15); /* Deep shadow with subtle purple glow */
+            padding: 2.5rem; /* Adjusted for mobile */
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+            border: 1px solid rgba(56, 189, 248, 0.2); /* Light blue border */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .card {
+                padding: 3.5rem;
+            }
+        }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .card {
+                padding: 4.5rem;
+            }
+        }
+        .card:hover {
+            transform: translateY(-12px) scale(1.01);
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.6), 0 0 50px rgba(139, 92, 246, 0.25);
+            border-color: rgba(56, 189, 248, 0.4); /* More visible border on hover */
+        }
+
+        /* Input Field Styles */
+        input[type="text"], input[type="number"], textarea {
+            border-radius: 1.25rem;
+            padding: 1rem 1.5rem; /* Adjusted for mobile */
+            border: 1px solid rgba(56, 189, 248, 0.3); /* Blueish border */
+            background-color: rgba(30, 41, 59, 0.8); /* Darker semi-transparent */
+            color: #e2e8f0;
+            transition: all 0.4s ease-in-out;
+            font-size: 1rem; /* Base font size */
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            input[type="text"], input[type="number"], textarea {
+                padding: 1.2rem 1.8rem;
+                font-size: 1.1rem;
+            }
+        }
+        input::placeholder {
+            color: rgba(156, 163, 175, 0.6);
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            outline: none;
+            border-color: #a78bfa; /* Light purple focus */
+            box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.3), inset 0 2px 5px rgba(0, 0, 0, 0.4);
+            background-color: rgba(30, 41, 59, 0.9);
+        }
+
+        /* Button Styles */
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem; /* Adjusted for mobile */
+            border-radius: 1.5rem;
+            font-weight: 800;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            background-size: 200% auto;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            button {
+                padding: 1.3rem 3rem;
+                width: auto;
+            }
+        }
+        button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease-out, height 0.6s ease-out;
+            z-index: 0;
+        }
+        button:hover:before {
+            width: 350%;
+            height: 350%;
+        }
+        button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #a78bfa 0%, #8b5cf6 100%); /* Пурпурный градиент */
+            color: #ffffff;
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
+            border: 1px solid #c4b5fd;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #8b5cf6 0%, #a78bfa 100%);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+            transform: translateY(-3px) scale(1.02);
+        }
+        .btn-delete {
+            background-color: #ef4444; /* Red */
+            color: #ffffff;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.25);
+        }
+        @media (min-width: 768px) {
+            .btn-delete {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        .btn-delete:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
+        }
+        .btn-telegram {
+            background: linear-gradient(45deg, #3b82f6 0%, #2563eb 100%); /* Blue Telegram gradient */
+            color: #ffffff;
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.35);
+            padding: 1.2rem 2.5rem;
+            font-size: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .btn-telegram {
+                padding: 1.5rem 3.5rem;
+                font-size: 2rem;
+            }
+        }
+        .animate-pulse-strong {
+            animation: pulse-strong 1.5s infinite;
+        }
+        @keyframes pulse-strong {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.95; }
+        }
+
+        /* Progress Circle Styles */
+        .progress-circle {
+            position: relative;
+            width: 140px; /* Adjusted for mobile */
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(#60a5fa 0%, #3b82f6 var(--progress), rgba(255, 255, 255, 0.1) var(--progress), rgba(255, 255, 255, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2), 0 8px 25px rgba(0,0,0,0.25);
+            border: 2px solid rgba(56, 189, 248, 0.2);
+        }
+        @media (min-width: 768px) {
+            .progress-circle {
+                width: 180px;
+                height: 180px;
+            }
+        }
+        .progress-circle::after {
+            content: '';
+            position: absolute;
+            width: 120px; /* Adjusted */
+            height: 120px;
+            border-radius: 50%;
+            background: #0f172a; /* Dark background of the inner circle */
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 768px) {
+            .progress-circle::after {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem; /* Adjusted */
+            font-weight: 900;
+            color: #60a5fa; /* Blue color for progress */
+            text-shadow: 0 0 5px rgba(96, 165, 250, 0.5);
+        }
+        @media (min-width: 768px) {
+            .progress-circle span {
+                font-size: 3rem;
+            }
+        }
+
+        /* Custom Alert/Toast Styles */
+        .custom-alert {
+            animation: slideIn 0.6s forwards, fadeOut 0.6s 3s forwards;
+            background-color: rgba(17, 24, 39, 0.9); /* Darker alert background */
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 1rem 1.5rem;
+            min-width: 280px;
+            max-width: 90%;
+        }
+        @media (min-width: 768px) {
+            .custom-alert {
+                padding: 1.2rem 2rem;
+                min-width: 350px;
+                max-width: 500px;
+            }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #a78bfa; /* Light purple spinner */
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 lg:p-12">
+
+    <div class="max-w-6xl mx-auto bg-gray-900 shadow-3xl rounded-3xl md:rounded-4xl lg:rounded-5xl overflow-hidden my-8 md:my-12 p-6 md:p-10 lg:p-16 border border-gray-800">
+
+        <!-- Header -->
+        <header class="text-center mb-16 md:mb-20 animated-section">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-gray-100 text-glow">
+                ЭЛИТНЫЙ ГАЙД:
+                <br><span class="gradient-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-3xl md:text-5xl lg:text-6xl">АРХИТЕКТОР ФРИЛАНС-ИМПЕРИИ</span>
+            </h1>
+            <p class="mt-6 md:mt-8 text-xl md:text-2xl lg:text-3xl text-gray-400 subtle-shadow">
+                Превратите свои навыки в масштабируемый бизнес.
+            </p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-purple-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваше Путешествие к Цифровому Доминированию
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8 subtle-shadow">
+                    Это не просто гайд по фрилансу. Это **дорожная карта для создания автономной, высокодоходной машины**, основанной на ваших навыках. Вы научитесь не только привлекать клиентов, но и выстраивать процессы, делегировать задачи и масштабироваться до уровня, который кажется недостижимым для большинства фрилансеров.
+                </p>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed subtle-shadow">
+                    Если вы готовы выйти за рамки "простого исполнителя" и стать **архитектором своей фриланс-империи**, вы нашли правильный ресурс. Здесь сосредоточены знания, которые позволят вам максимизировать каждый проект и каждого клиента.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 1: Элитные Источники Клиентов и Контрактов -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-gray-800 to-black">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-cyan-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Элитный Клиент-Сорсинг: Крупные Игроки и Постоянные Контракты
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8 subtle-shadow">
+                    Забудьте о биржах с низкобюджетными заказами. Мы покажем, как находить клиентов, готовых платить высокую цену за вашу экспертность.
+                </p>
+                <ul class="list-none space-y-6 text-base md:text-lg text-gray-200 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-emerald-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Лидогенерация для крупных проектов:</span> Использование CRM-систем, автоматизированный поиск компаний, которым нужны ваши услуги, и персонализированные предложения.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-fuchsia-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Нетворкинг высокого уровня:</span> Как попасть в закрытые профессиональные сообщества, на элитные конференции и заводить связи с влиятельными лицами.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-amber-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Разработка и продажа "премиум-продуктов":</span> Превращение ваших услуг в стандартизированные, но дорогие продукты (например, "Аудит контент-стратегии под ключ").
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Автоматизация и Делегирование: Строим Машину Дохода -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-indigo-900 to-black">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Автоматизация и Делегирование: Бизнес Без Вас
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8 subtle-shadow">
+                    Ваша цель — не работать больше, а зарабатывать больше. Научитесь создавать системы, которые работают на вас.
+                </p>
+                <ul class="list-none space-y-6 text-base md:text-lg text-gray-200 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-cyan-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Выбор и внедрение CRM-систем:</span> Управление клиентами, проектами, задачами и коммуникациями в единой системе.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-green-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Использование ИИ-инструментов для автоматизации:</span> Генерация контента, анализ данных, автоматические ответы.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-red-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Эффективное делегирование и создание команды:</span> Когда и как нанимать, где искать таланты, как управлять удаленными сотрудниками.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Личный Бренд и Финансовая Свобода -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-fuchsia-900 to-black">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-pink-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-purple-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Мастер Личного Бренда и Финансовой Свободы
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8 subtle-shadow">
+                    Ваше имя — ваш главный актив. Постройте мощный бренд и управляйте финансами как профессионал.
+                </p>
+                <ul class="list-none space-y-6 text-base md:text-lg text-gray-200 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-orange-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Стратегии контент-маркетинга для эксперта:</span> Блог, подкасты, гостевые публикации — как использовать их для усиления вашего авторитета.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-lime-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Финансовая грамотность для фрилансера:</span> Бюджетирование, инвестирование прибыли, диверсификация доходов.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-rose-400 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-lg md:text-xl">Юридические нюансы масштабирования:</span> Оформление бизнеса, контракты, международные платежи.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Interactive: AI-Powered Service Upsell/Cross-sell Generator -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-purple-800 to-black">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-orange-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    ЭЛИТНЫЙ ИНСТРУМЕНТ: ИИ-Генератор Дополнительных Услуг!
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8 subtle-shadow">
+                    Увеличьте средний чек с каждого клиента! Введите свою основную услугу, и наш ИИ предложит высокомаржинальные дополнительные услуги, которые вы можете предложить.
+                </p>
+                <div class="bg-gray-800 p-6 md:p-10 rounded-2xl shadow-inner mb-8 md:mb-10">
+                    <label for="baseService" class="block text-gray-300 text-lg md:text-xl font-semibold mb-4">Ваша основная услуга (например: "написание статей для блога", "создание логотипов", "перевод документов"):</label>
+                    <textarea id="baseService" rows="3" placeholder="Введите здесь свою основную услугу..." class="w-full text-base md:text-lg"></textarea>
+                    <button id="generateUpsellBtn" class="btn-primary w-full mt-6 md:mt-8 animate-pulse-strong">
+                        <span id="upsellBtnText">СГЕНЕРИРОВАТЬ ИДЕИ ДОПОЛНИТЕЛЬНЫХ УСЛУГ</span>
+                        <div id="upsellBtnSpinner" class="hidden spinner ml-3 md:ml-4"></div>
+                    </button>
+                </div>
+
+                <div id="upsellOutput" class="bg-gray-900 p-6 md:p-10 rounded-2xl shadow-2xl mt-8 md:mt-12 hidden animated-section">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-400 mb-6 md:mb-8">Ваши новые возможности для роста дохода:</h3>
+                    <div id="upsellContent" class="text-base md:text-lg text-gray-200 leading-relaxed space-y-4 md:space-y-6">
+                        <!-- Upsell ideas will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Motivational Speech for Elite -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-r from-blue-900 to-purple-900">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-indigo-400 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-purple-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваше Наследие Фриланс-Империи Ждет!
+                </h2>
+                <p class="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-8 subtle-shadow">
+                    Вы получили ключ к неограниченным возможностям в мире фриланса. Эти знания не просто о заработке, они о создании стиля жизни, где вы контролируете свой доход, время и масштабы. Применяйте эти стратегии масштабно, будьте визионером, и ваша цифровая империя будет расти с каждым днем. Мир ждет лидеров, и вы — один из них!
+                </p>
+                <div class="text-center mt-8 md:mt-12">
+                    <div class="progress-circle mx-auto" style="--progress: 99%;">
+                        <span>99%</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 text-lg md:text-xl font-bold subtle-shadow">
+                        99% вашей Элитной Империи – это ваш стратегический взгляд!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Telegram Channel Promotion & Copyright -->
+        <footer class="text-center pt-12 md:pt-16 border-t-2 border-gray-700 mt-16 md:mt-20 animated-section">
+            <p class="text-xl md:text-2xl lg:text-3xl font-bold text-gray-200 mb-6 subtle-shadow">
+                Станьте частью ЭЛИТНОГО СООБЩЕСТВА!
+            </p>
+            <p class="text-base md:text-lg text-gray-400 mb-8 subtle-shadow">
+                Получайте эксклюзивные обновления, новые стратегии и доступ к сети единомышленников, которые меняют правила игры.
+            </p>
+            <a href="https://t.me/dropshop234" target="_blank" class="inline-block btn-telegram text-white text-xl md:text-2xl px-8 py-4 rounded-full font-extrabold shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 animate-pulse-strong">
+                <svg class="w-7 h-7 md:w-8 md:h-8 mr-3 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.999 12c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7 7-3.13 7-7zm-7.25 4.71l-5.69-2.22c-.41-.16-.41-.57 0-.73l12.87-5.02c.3-.12.55.15.35.43L13 14.88c-.2.27-.37.49-.64.55l-2.61.52c-.52.1-.53-.13 0-.25l2.64-1.92c.2-.14.3-.39.22-.64l-.9-2.8c-.1-.3-.42-.36-.61-.15l-1.8 1.54z"></path></svg>
+                МОЙ TELEGRAM-КАНАЛ
+            </a>
+            <p class="mt-10 text-xs md:text-sm text-gray-500 subtle-shadow">
+                Все права защищены. <span class="font-bold text-gray-400">© [Jesus/DropShop] [2025 год]</span>.
+                Этот ЭЛИТНЫЙ гайд является моей интеллектуальной собственностью.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const animatedSections = document.querySelectorAll('.animated-section');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.05
+        });
+        animatedSections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Custom Alert/Toast Function
+        function alertUser(message, type = 'info') {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                clearTimeout(existingAlert.dataset.timeoutId);
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = 'fixed top-8 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-2xl z-50 transition-all duration-500 transform custom-alert flex items-center justify-between';
+            
+            let iconSvg = '';
+            if (type === 'success') {
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-green-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>';
+            } else if (type === 'error') {
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-red-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>';
+            } else { // info
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-blue-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>';
+            }
+
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    ${iconSvg}
+                    <p class="text-lg font-medium text-white">${message}</p>
+                </div>
+                <button class="ml-4 text-white text-3xl font-bold p-1 leading-none hover:text-gray-400 transition-colors" onclick="document.getElementById('customAlert').remove()">
+                    &times;
+                </button>
+            `;
+            document.body.appendChild(alertDiv);
+
+            const timeoutId = setTimeout(() => {
+                alertDiv.remove();
+            }, 4000);
+            alertDiv.dataset.timeoutId = timeoutId;
+        }
+
+        // AI-Powered Service Upsell/Cross-sell Generator Logic
+        const generateUpsellBtn = document.getElementById('generateUpsellBtn');
+        const upsellBtnText = document.getElementById('upsellBtnText');
+        const upsellBtnSpinner = document.getElementById('upsellBtnSpinner');
+        const upsellOutput = document.getElementById('upsellOutput');
+        const upsellContent = document.getElementById('upsellContent');
+        const baseServiceInput = document.getElementById('baseService');
+
+        generateUpsellBtn.addEventListener('click', async () => {
+            const baseService = baseServiceInput.value.trim();
+            if (!baseService) {
+                alertUser("Пожалуйста, введите вашу основную услугу для генерации идей.", 'error');
+                return;
+            }
+
+            upsellBtnText.textContent = 'ГЕНЕРИРУЕМ...';
+            upsellBtnSpinner.classList.remove('hidden');
+            generateUpsellBtn.disabled = true;
+            generateUpsellBtn.classList.add('animate-pulse-strong');
+
+            try {
+                let chatHistory = [];
+                const prompt = `Предложи 3-4 идеи дополнительных (upsell/cross-sell) услуг, которые фрилансер, предоставляющий услугу '${baseService}', мог бы предложить своим клиентам. Для каждой идеи укажи: 1) Название дополнительной услуги. 2) Краткое описание ценности для клиента. 3) Почему это выгодно для фрилансера. Формат ответа строго в JSON массиве объектов, где каждый объект имеет ключи 'serviceName' (строка), 'valueForClient' (строка), и 'benefitForFreelancer' (строка).`;
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "serviceName": { "type": "STRING" },
+                                    "valueForClient": { "type": "STRING" },
+                                    "benefitForFreelancer": { "type": "STRING" }
+                                },
+                                "propertyOrdering": ["serviceName", "valueForClient", "benefitForFreelancer"]
+                            }
+                        }
+                    }
+                };
+                const apiKey = "AIzaSyCESsXjC52VYBP0bBqFxBIpW5_ulB3LwEQ"; // Canvas will provide this at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log("API Response for Upsell Generator:", result);
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+
+                    const jsonString = result.candidates[0].content.parts[0].text;
+                    console.log("Parsed JSON string (Upsell Generator):", jsonString);
+
+                    try {
+                        const parsedJson = JSON.parse(jsonString);
+                        console.log("Parsed JSON object (Upsell Generator):", parsedJson);
+
+                        upsellContent.innerHTML = ''; // Clear previous ideas
+                        if (Array.isArray(parsedJson) && parsedJson.length > 0) {
+                            parsedJson.forEach(idea => {
+                                const ideaDiv = document.createElement('div');
+                                ideaDiv.className = 'mb-4 p-4 bg-gray-800 rounded-xl shadow-md';
+                                ideaDiv.innerHTML = `
+                                    <h4 class="font-bold text-yellow-300 text-xl md:text-2xl lg:text-3xl mb-2">${idea.serviceName}</h4>
+                                    <p class="text-gray-300 text-base md:text-lg mb-2"><strong>Ценность для клиента:</strong> ${idea.valueForClient}</p>
+                                    <p class="text-gray-300 text-base md:text-lg"><strong>Выгода для фрилансера:</strong> ${idea.benefitForFreelancer}</p>
+                                `;
+                                upsellContent.appendChild(ideaDiv);
+                            });
+                            upsellOutput.classList.remove('hidden');
+                            upsellOutput.classList.add('is-visible');
+                            alertUser("Идеи дополнительных услуг сгенерированы!", 'success');
+                        } else {
+                            upsellContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Не удалось сгенерировать идеи в ожидаемом формате. Попробуйте еще раз.</p>';
+                            upsellOutput.classList.remove('hidden');
+                            upsellOutput.classList.add('is-visible');
+                            alertUser("Не удалось сгенерировать идеи. Попробуйте еще раз.", 'error');
+                        }
+
+                    } catch (parseError) {
+                        console.error("JSON parsing error (Upsell Generator):", parseError);
+                        upsellContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Ошибка при обработке полученных данных. Попробуйте еще раз.</p>';
+                        upsellOutput.classList.remove('hidden');
+                        upsellOutput.classList.add('is-visible');
+                        alertUser("Ошибка обработки данных. Пожалуйста, попробуйте еще раз.", 'error');
+                    }
+
+                } else {
+                    console.error("Unexpected API response structure (Upsell Generator):", result);
+                    upsellContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Не удалось получить идеи. Структура ответа ИИ не соответствует ожидаемой.</p>';
+                    upsellOutput.classList.remove('hidden');
+                    upsellOutput.classList.add('is-visible');
+                    alertUser("Не удалось получить идеи. Попробуйте еще раз.", 'error');
+                }
+
+            } catch (error) {
+                console.error("Error generating upsell ideas:", error);
+                upsellContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Произошла ошибка при генерации идей. Проверьте ваше соединение или попробуйте позже.</p>';
+                upsellOutput.classList.remove('hidden');
+                upsellOutput.classList.add('is-visible');
+                alertUser("Ошибка генерации идей. Пожалуйста, попробуйте позже.", 'error');
+            } finally {
+                upsellBtnText.textContent = 'СГЕНЕРИРОВАТЬ ЕЩЁ ИДЕИ';
+                upsellBtnSpinner.classList.add('hidden');
+                generateUpsellBtn.disabled = false;
+                generateUpsellBtn.classList.remove('animate-pulse-strong');
+            }
+        });
+
+        // Initial setup on window load
+        window.onload = function() {
+            // Observe sections for scroll animations
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        };
+    </script>
+</body>
+</html>

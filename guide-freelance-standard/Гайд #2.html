@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Гайд: Мастер-Класс по Высокодоходной Перепродаже</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение Google Fonts: Inter (основной) и Montserrat (для заголовков) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Светлый, элегантный градиентный фон */
+            color: #212529; /* Темный текст для контраста */
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Animated Section on Scroll */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #ffffff;
+            border-radius: 2rem; /* Very rounded corners */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); /* Pronounced shadow */
+            padding: 2rem; /* Adjusted for mobile */
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            border: 1px solid #dee2e6; /* Thin border */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .card {
+                padding: 3.5rem;
+            }
+        }
+        .card:hover {
+            transform: translateY(-8px); /* Noticeable lift on hover */
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Input Field Styles */
+        input[type="text"], input[type="number"], textarea {
+            border-radius: 1rem; /* Max rounded */
+            padding: 0.8rem 1.2rem; /* Adjusted for mobile */
+            border: 1px solid #adb5bd; /* Soft gray */
+            background-color: #f8f9fa;
+            color: #343a40;
+            transition: all 0.3s ease-in-out;
+            font-size: 0.9rem; /* Adjusted for mobile */
+            width: 100%; /* Ensure full width */
+        }
+        @media (min-width: 768px) {
+            input[type="text"], input[type="number"], textarea {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            outline: none;
+            border-color: #007bff; /* Bright blue focus */
+            box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.25); /* More pronounced focus shadow */
+            background-color: #ffffff;
+        }
+
+        /* Animated Button Styles */
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 2rem; /* Adjusted for mobile */
+            border-radius: 1rem; /* More rounded */
+            font-weight: 700;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            width: 100%; /* Full width by default on mobile */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            button {
+                padding: 1.1rem 2.5rem;
+                width: auto; /* Auto width on larger screens */
+            }
+        }
+        button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease-out, height 0.4s ease-out;
+        }
+        button:hover:before {
+            width: 300%;
+            height: 300%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #007bff 0%, #0056b3 100%); /* Deep blue gradient */
+            color: #ffffff;
+            box-shadow: 0 12px 30px rgba(0, 123, 255, 0.3);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #0056b3 0%, #007bff 100%);
+            box-shadow: 0 15px 35px rgba(0, 123, 255, 0.4);
+            transform: translateY(-3px) scale(1.02);
+        }
+        .btn-delete {
+            background-color: #dc3545; /* Red for deletion */
+            color: #ffffff;
+            padding: 0.7rem 1.4rem;
+            font-size: 0.9rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.25);
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(200, 35, 51, 0.35);
+        }
+        .btn-secondary {
+            background-color: #6c757d; /* Gray for secondary actions */
+            color: #ffffff;
+            box-shadow: 0 6px 15px rgba(108, 117, 125, 0.25);
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(90, 98, 104, 0.35);
+        }
+        .btn-telegram {
+            background: linear-gradient(45deg, #0088cc 0%, #006699 100%); /* Telegram gradient */
+            color: #ffffff;
+            box-shadow: 0 12px 30px rgba(0, 136, 204, 0.3);
+            padding: 1.2rem 2.5rem; /* Adjusted for mobile */
+            font-size: 1.5rem; /* Adjusted for mobile */
+        }
+        @media (min-width: 768px) {
+            .btn-telegram {
+                padding: 1.5rem 5rem;
+                font-size: 2.5rem;
+            }
+        }
+        .animate-pulse-strong {
+            animation: pulse-strong 1.5s infinite;
+        }
+        @keyframes pulse-strong {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.03); opacity: 0.9; }
+        }
+
+
+        /* Profit Table Styles */
+        .profit-table th, .profit-table td {
+            padding: 0.8rem 1rem; /* Adjusted for mobile */
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.9rem; /* Adjusted for mobile */
+        }
+        @media (min-width: 768px) {
+            .profit-table th, .profit-table td {
+                padding: 1.25rem 1.75rem;
+                font-size: 1.05rem;
+            }
+        }
+        .profit-table th {
+            background-color: #f0f2f5;
+            font-weight: 700;
+            color: #495057;
+        }
+        .profit-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        /* Mobile Table Adaptation */
+        @media (max-width: 767px) { /* Small screens */
+            .profit-table thead { display: none; }
+            .profit-table, .profit-table tbody, .profit-table tr, .profit-table td {
+                display: block;
+                width: 100%;
+            }
+            .profit-table tr {
+                margin-bottom: 1rem; /* Adjusted margin */
+                border: 1px solid #e2e8f0;
+                border-radius: 1rem; /* Adjusted roundedness */
+                overflow: hidden;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            }
+            .profit-table td {
+                text-align: right;
+                padding-left: 50%; /* Space for data-label */
+                position: relative;
+            }
+            .profit-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 1.5rem; /* Adjusted padding */
+                width: calc(50% - 3rem); /* Adjust width */
+                text-align: left;
+                font-weight: 600;
+                color: #6c757d;
+            }
+        }
+
+        /* Progress Circle Styles */
+        .progress-circle {
+            position: relative;
+            width: 120px; /* Smaller for mobile */
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#28a745 0%, #218838 var(--progress), #e9ecef var(--progress), #e9ecef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1), 0 8px 25px rgba(0,0,0,0.15);
+        }
+        @media (min-width: 768px) {
+            .progress-circle {
+                width: 160px;
+                height: 160px;
+            }
+        }
+        .progress-circle::after {
+            content: '';
+            position: absolute;
+            width: 100px; /* Adjusted */
+            height: 100px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.08);
+        }
+        @media (min-width: 768px) {
+            .progress-circle::after {
+                width: 130px;
+                height: 130px;
+            }
+        }
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            font-size: 2rem; /* Adjusted */
+            font-weight: 900;
+            color: #218838;
+        }
+        @media (min-width: 768px) {
+            .progress-circle span {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Custom Alert/Toast styles */
+        .custom-alert {
+            animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+            padding: 0.8rem 1.2rem; /* Adjusted for mobile */
+            min-width: 250px; /* Minimum width */
+            max-width: 90%; /* Max width relative to viewport */
+        }
+        @media (min-width: 768px) {
+            .custom-alert {
+                padding: 1rem 1.5rem;
+                min-width: 300px;
+                max-width: 400px;
+            }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-70px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 20px; /* Adjusted for mobile */
+            height: 20px; /* Adjusted for mobile */
+            animation: spin 1s linear infinite;
+        }
+        @media (min-width: 768px) {
+            .spinner {
+                width: 24px;
+                height: 24px;
+            }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 lg:p-12">
+
+    <div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl md:rounded-4xl overflow-hidden my-8 md:my-10 p-6 md:p-10 lg:p-16 border border-gray-200">
+
+        <!-- Header: VIP Branding -->
+        <header class="text-center mb-16 md:mb-20 animated-section">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight tracking-tight">
+                <span class="text-yellow-600">VIP</span> Гайд:
+                <br>Мастер-Класс по <span class="text-blue-700 text-3xl md:text-5xl lg:text-6xl">Высокодоходной Перепродаже</span>
+            </h1>
+            <p class="mt-6 md:mt-8 text-xl md:text-2xl lg:text-3xl text-gray-700 font-semibold italic">
+                Откройте двери к элитным стратегиям и максимальной прибыли!
+            </p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-indigo-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Вы готовы к новому уровню?
+                </h2>
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4 md:mb-6">
+                    Если вы уже освоили базовые принципы перепродажи и ищете способы значительно увеличить свой доход, этот **VIP Гайд** — ваш следующий шаг. Здесь собраны не просто советы, а **проверенные стратегии и эксклюзивные техники**, которые используют опытные реселлеры для получения максимальной прибыли.
+                </p>
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed">
+                    Забудьте о мелочах. Мы научим вас видеть возможности там, где другие проходят мимо, и превращать их в значительный, стабильный доход. Это не просто гайд – это дорожная карта к вашей финансовой свободе и успеху в мире высокодоходной перепродажи.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 1: Elite Sourcing -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-blue-50 to-indigo-50">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-blue-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 1.07V9h7c0-4.97-4.03-9-9-9zM4.26 4.96A9.998 9.998 0 002 12c0 5.19 3.99 9.45 9 9.95V14H4.26zM11 21.95V14h7.74c.48-1.55.76-3.21.76-4.95 0-2.47-.98-4.7-2.58-6.33L11 21.95z"></path></svg>
+                    Элитные Источники Товаров: Где скрыты Сокровища?
+                </h2>
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4 md:mb-6">
+                    Забудьте о стандартных площадках – мы покажем вам места, где другие не ищут, но где скрыты настоящие бриллианты с высокой маржой.
+                </p>
+                <ul class="list-none space-y-4 md:space-y-6 text-lg md:text-xl text-gray-700 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-yellow-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Закрытые онлайн-аукционы и ликвидационные распродажи:</span> Доступ к товарам из обанкротившихся магазинов или неликвида. Цены здесь могут быть невероятно низкими. Ищите агрегаторы таких аукционов.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-emerald-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Нишевые рынки и сообщества:</span> Вместо масс-маркета, сфокусируйтесь на узких, но высокодоходных нишах: винтажная электроника, редкие комиксы/манга, дизайнерская мебель б/у, специализированное оборудование. Ищите тематические форумы и группы.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-red-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Государственные и корпоративные аукционы:</span> Часто списываемое имущество (техника, мебель, автомобили) продается за бесценок. Требует изучения правил, но потенциал огромен.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: VIP Selling Strategies -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-green-50 to-emerald-50">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-green-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Стратегии VIP-Продаж: Как продать дороже и быстрее?
+                </h2>
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4 md:mb-6">
+                    Просто разместить объявление недостаточно. Мы научим вас искусству презентации и эффективного общения, чтобы максимизировать каждую сделку.
+                </p>
+                <ul class="list-none space-y-4 md:space-y-6 text-lg md:text-xl text-gray-700 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-blue-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Продвинутый копирайтинг для объявлений:</span> Создавайте тексты, которые продают, еще до того, как покупатель увидит товар. Используйте эмоциональные триггеры и выгоды, а не просто характеристики.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-purple-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Искусство торга и апселла:</span> Научитесь не только выгодно покупать, но и увеличивать средний чек при продаже. Предлагайте сопутствующие товары или услуги.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-red-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Построение репутации и лояльности:</span> Отзывы – это валюта XXI века. Как превратить каждого покупателя в своего амбассадора и гарантировать повторные продажи.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Scaling and Automation -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-purple-50 to-pink-50">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-purple-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Масштабирование и Автоматизация: От единичных сделок к потоку
+                </h2>
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4 md:mb-6">
+                    Ваш доход будет расти пропорционально способности обрабатывать больше сделок. Узнайте, как перейти от случайных продаж к системному бизнесу.
+                </p>
+                <ul class="list-none space-y-4 md:space-y-6 text-lg md:text-xl text-gray-700 pl-4">
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-orange-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Принципы оптовых закупок:</span> Как покупать не по одной, а сразу партией, значительно снижая себестоимость и увеличивая прибыль.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-teal-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Оптимизация процессов:</span> Эффективное управление временем, автоматизация рутинных задач (фото, описание, постинг).
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-cyan-600 mr-3 md:mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-gray-900 text-lg md:text-xl">Делегирование:</span> Ваши первые шаги к созданию мини-команды. Даже помощь друга с фотографиями или отправкой уже освободит ваше время.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Interactive Niche Idea Generator -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-br from-red-50 to-orange-50">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-red-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Эксклюзив: Генератор Нишевых Идей!
+                </h2>
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-6 md:mb-8">
+                    Иногда самое сложное — это найти идею. Наш генератор, работающий на базе искусственного интеллекта, предложит вам потенциально прибыльные ниши для перепродажи, которые вы могли не заметить.
+                </p>
+                <div class="text-center mb-6 md:mb-8">
+                    <button id="generateNicheBtn" class="btn-primary animate-pulse-strong">
+                        <span id="btnText">Сгенерировать идею ниши</span>
+                        <div id="btnSpinner" class="hidden spinner ml-2 md:ml-3"></div>
+                    </button>
+                </div>
+                <div id="nicheIdeasOutput" class="bg-gray-50 p-6 md:p-8 rounded-xl shadow-inner mt-6 md:mt-8 hidden animated-section">
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6">Ваши новые идеи для прибыли:</h3>
+                    <div id="nicheIdeasContent" class="text-lg md:text-xl text-gray-700 leading-relaxed space-y-3 md:space-y-4">
+                        <!-- Niche ideas will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profit Calculator -->
+        <section class="mb-16 md:mb-20 animated-section" id="profit-calculator">
+            <div class="card bg-gradient-to-br from-teal-50 to-cyan-50">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-teal-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваш Расширенный Калькулятор Прибыли!
+                </h2>
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-6 md:mb-8">
+                    Следите за каждой копейкой и планируйте свой доход заранее. Этот инструмент поможет вам точно рассчитать потенциальную прибыль от каждой сделки.
+                </p>
+                <div class="bg-blue-50 p-6 md:p-10 rounded-2xl shadow-inner mb-8 md:mb-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-6 md:mb-8">
+                        <div>
+                            <label for="productName" class="block text-gray-700 text-base md:text-lg font-semibold mb-2 md:mb-3">Название товара:</label>
+                            <input type="text" id="productName" placeholder="Например: Редкая книга 19 века" class="w-full text-sm md:text-base">
+                        </div>
+                        <div>
+                            <label for="purchasePrice" class="block text-gray-700 text-base md:text-lg font-semibold mb-2 md:mb-3">Цена покупки (₽):</label>
+                            <input type="number" id="purchasePrice" min="0" value="0" class="w-full text-sm md:text-base">
+                        </div>
+                        <div>
+                            <label for="sellingPrice" class="block text-gray-700 text-base md:text-lg font-semibold mb-2 md:mb-3">Цена продажи (₽):</label>
+                            <input type="number" id="sellingPrice" min="0" value="0" class="w-full text-sm md:text-base">
+                        </div>
+                        <div>
+                            <label for="quantity" class="block text-gray-700 text-base md:text-lg font-semibold mb-2 md:mb-3">Количество:</label>
+                            <input type="number" id="quantity" min="1" value="1" class="w-full text-sm md:text-base">
+                        </div>
+                    </div>
+                    <button onclick="addItem()" class="btn-primary w-full mt-4 md:mt-6 transform active:scale-95">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Добавить товар для расчета
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl shadow-lg">
+                    <table class="min-w-full bg-white profit-table">
+                        <thead>
+                            <tr>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs text-gray-700 tracking-wider">Название товара</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs text-gray-700 tracking-wider">Покупка (₽)</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs text-gray-700 tracking-wider">Продажа (₽)</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs text-gray-700 tracking-wider">Кол-во</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs text-gray-700 tracking-wider">Прибыль с ед. (₽)</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs text-gray-700 tracking-wider">Общая прибыль (₽)</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs text-gray-700 tracking-wider">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="profitTableBody" class="text-gray-800">
+                            <!-- Items will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-8 md:mt-12 p-8 md:p-10 bg-green-100 rounded-3xl shadow-xl text-center animated-section">
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-green-800 mb-5 md:mb-6">
+                        Ваша Общая Потенциальная Прибыль:
+                    </h3>
+                    <p id="totalProfit" class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-green-700 leading-none animate-pulse-strong">
+                        0.00 ₽
+                    </p>
+                    <p class="text-lg md:text-xl text-gray-600 mt-4 md:mt-5">
+                        Каждая успешная сделка приближает вас к финансовой свободе!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Motivational Speech -->
+        <section class="mb-16 md:mb-20 animated-section">
+            <div class="card bg-gradient-to-r from-yellow-100 to-orange-100">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-5 text-yellow-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваш путь к Элитному Заработку начинается сейчас!
+                </h2>
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4 md:mb-6">
+                    Вы получили доступ к знаниям, которые отделяют любителей от профессионалов. Используйте их мудро. Помните: настоящий успех приходит к тем, кто действует, анализирует и не боится экспериментировать. Не останавливайтесь на достигнутом, продолжайте учиться, искать и масштабировать. Ваша финансовая независимость — это не мечта, а результат целенаправленных действий. Верьте в свои силы и никогда не сдавайтесь!
+                </p>
+                <div class="text-center mt-8 md:mt-12">
+                    <div class="progress-circle mx-auto" style="--progress: 95%;">
+                        <span>95%</span>
+                    </div>
+                    <p class="mt-4 md:mt-6 text-gray-800 text-lg md:text-xl font-bold">
+                        95% вашего VIP-успеха – это ваша воля к действию!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Telegram Channel Promotion -->
+        <footer class="text-center pt-12 md:pt-16 border-t-2 border-gray-200 mt-16 md:mt-20 animated-section">
+            <p class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+                Присоединяйтесь к сообществу успешных реселлеров!
+            </p>
+            <p class="text-lg md:text-xl text-gray-700 mb-8">
+                Не упустите еще больше эксклюзивных стратегий, инсайтов и поддержки.
+                Мой Telegram-канал — это ваш центр для роста и обмена опытом!
+            </p>
+            <a href="https://t.me/dropshop234" target="_blank" class="inline-block btn-telegram text-white text-xl md:text-2xl px-8 md:px-10 py-4 md:py-5 rounded-full font-extrabold shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-105 animate-bounce-slow">
+                <svg class="w-7 h-7 md:w-8 md:h-8 mr-3 md:mr-4 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.999 12c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7 7-3.13 7-7zm-7.25 4.71l-5.69-2.22c-.41-.16-.41-.57 0-.73l12.87-5.02c.3-.12.55.15.35.43L13 14.88c-.2.27-.37.49-.64.55l-2.61.52c-.52.1-.53-.13 0-.25l2.64-1.92c.2-.14.3-.39.22-.64l-.9-2.8c-.1-.3-.42-.36-.61-.15l-1.8 1.54z"></path></svg>
+                Перейти в Telegram-канал
+            </a>
+            <p class="mt-8 md:mt-10 text-sm md:text-base text-gray-500">
+                Все права защищены. <span class="font-extrabold text-gray-700">© [Jesus/DropShop] [2025 год]</span>.
+                Этот гайд является моей интеллектуальной собственностью и предназначен только для личного использования.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const animatedSections = document.querySelectorAll('.animated-section');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1 // Section becomes visible when 10% of it is in view
+        });
+
+        // Profit Calculator Logic
+        let items = []; // Array to store product data
+
+        /**
+         * Adds an item to the profit calculator table.
+         * Validates inputs and calculates profit.
+         */
+        function addItem() {
+            const productNameInput = document.getElementById('productName');
+            const purchasePriceInput = document.getElementById('purchasePrice');
+            const sellingPriceInput = document.getElementById('sellingPrice');
+            const quantityInput = document.getElementById('quantity');
+
+            const productName = productNameInput.value;
+            const purchasePrice = parseFloat(purchasePriceInput.value);
+            const sellingPrice = parseFloat(sellingPriceInput.value);
+            const quantity = parseInt(quantityInput.value);
+
+            // Input validation
+            if (!productName || productName.trim() === '') {
+                alertUser("Пожалуйста, введите название товара.", 'error');
+                return;
+            }
+            if (isNaN(purchasePrice) || purchasePrice < 0) {
+                alertUser("Пожалуйста, введите корректную цену покупки (число не менее 0).", 'error');
+                return;
+            }
+            if (isNaN(sellingPrice) || sellingPrice < 0) {
+                alertUser("Пожалуйста, введите корректную цену продажи (число не менее 0).", 'error');
+                return;
+            }
+            if (isNaN(quantity) || quantity < 1) {
+                alertUser("Пожалуйста, введите корректное количество (число не менее 1).", 'error');
+                return;
+            }
+            if (sellingPrice < purchasePrice) {
+                 alertUser("Цена продажи не может быть меньше цены покупки. Установите цену продажи выше цены покупки для получения прибыли.", 'error');
+                 return;
+            }
+
+            const itemProfitPerUnit = sellingPrice - purchasePrice;
+            const itemTotalProfit = itemProfitPerUnit * quantity;
+
+            const newItem = {
+                id: Date.now(), // Unique ID for each item
+                name: productName,
+                purchase: purchasePrice,
+                selling: sellingPrice,
+                quantity: quantity,
+                profitPerUnit: itemProfitPerUnit,
+                totalProfit: itemTotalProfit
+            };
+
+            items.push(newItem); // Add new item to the array
+            renderItems(); // Update table display
+            calculateTotalProfit(); // Recalculate total profit
+
+            // Clear input fields
+            productNameInput.value = '';
+            purchasePriceInput.value = '0';
+            sellingPriceInput.value = '0';
+            quantityInput.value = '1';
+
+            alertUser(`Товар "${productName}" успешно добавлен!`, 'success');
+        }
+
+        /**
+         * Deletes an item from the calculator based on its ID.
+         * @param {number} id - The unique ID of the item to delete.
+         */
+        function deleteItem(id) {
+            const itemName = items.find(item => item.id === id)?.name || 'товар';
+            items = items.filter(item => item.id !== id); // Filter out the item by ID
+            renderItems(); // Update table display
+            calculateTotalProfit(); // Recalculate total profit
+            alertUser(`Товар "${itemName}" удален.`);
+        }
+
+        /**
+         * Renders all items in the `items` array into the profit table.
+         */
+        function renderItems() {
+            const tableBody = document.getElementById('profitTableBody');
+            tableBody.innerHTML = ''; // Clear table before rendering
+
+            if (items.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="py-6 text-center text-gray-500 italic">
+                            Список товаров пуст. Добавьте первый товар выше, чтобы начать расчет!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td data-label="Название товара" class="font-semibold">${item.name}</td>
+                    <td data-label="Покупка (₽)">${item.purchase.toFixed(2)} ₽</td>
+                    <td data-label="Продажа (₽)">${item.selling.toFixed(2)} ₽</td>
+                    <td data-label="Кол-во">${item.quantity}</td>
+                    <td data-label="Прибыль с ед. (₽)" class="font-bold text-green-600">${item.profitPerUnit.toFixed(2)} ₽</td>
+                    <td data-label="Общая прибыль (₽)" class="font-extrabold text-green-700">${item.totalProfit.toFixed(2)} ₽</td>
+                    <td>
+                        <button onclick="deleteItem(${item.id})" class="btn-delete transform active:scale-95">
+                            Удалить
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        /**
+         * Calculates and displays the total profit from all items.
+         */
+        function calculateTotalProfit() {
+            const total = items.reduce((sum, item) => sum + item.totalProfit, 0);
+            document.getElementById('totalProfit').textContent = `${total.toFixed(2)} ₽`;
+        }
+
+        // Custom Alert/Toast Function (replaces standard alert())
+        /**
+         * Displays a custom alert/toast message.
+         * @param {string} message - The message to display.
+         * @param {'info'|'success'|'error'} type - The type of alert (influences color).
+         */
+        function alertUser(message, type = 'info') {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                clearTimeout(existingAlert.dataset.timeoutId);
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = 'fixed top-8 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-2xl z-50 transition-all duration-500 transform custom-alert flex items-center justify-between';
+
+            let bgColor = 'bg-blue-600';
+            let iconSvg = '';
+            if (type === 'success') {
+                bgColor = 'bg-green-600';
+                iconSvg = '<svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>';
+            } else if (type === 'error') {
+                bgColor = 'bg-red-600';
+                iconSvg = '<svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>';
+            } else {
+                iconSvg = '<svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>';
+            }
+
+            alertDiv.classList.add(bgColor, 'text-white');
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    ${iconSvg}
+                    <p class="text-lg font-medium">${message}</p>
+                </div>
+                <button class="ml-4 text-white text-3xl font-bold p-1 leading-none" onclick="document.getElementById('customAlert').remove()">
+                    &times;
+                </button>
+            `;
+            document.body.appendChild(alertDiv);
+
+            const timeoutId = setTimeout(() => {
+                alertDiv.remove();
+            }, 4000); // Remove after 4 seconds (includes animation)
+            alertDiv.dataset.timeoutId = timeoutId;
+        }
+
+
+        // Niche Idea Generator Logic
+        const generateNicheBtn = document.getElementById('generateNicheBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const nicheIdeasOutput = document.getElementById('nicheIdeasOutput');
+        const nicheIdeasContent = document.getElementById('nicheIdeasContent');
+
+        generateNicheBtn.addEventListener('click', async () => {
+            btnText.textContent = 'Генерируем...';
+            btnSpinner.classList.remove('hidden');
+            generateNicheBtn.disabled = true;
+            generateNicheBtn.classList.add('animate-pulse-strong');
+
+            try {
+                let chatHistory = [];
+                const prompt = "Предложи 3 уникальные и потенциально прибыльные ниши для перепродажи товаров, ориентированные на новичка с небольшим стартовым капиталом. Для каждой ниши укажи 2-3 примера конкретных товаров. Формат ответа строго в JSON массиве объектов, где каждый объект имеет ключи 'niche' (строка) и 'items' (массив строк).";
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "niche": { "type": "STRING" },
+                                    "items": {
+                                        "type": "ARRAY",
+                                        "items": { "type": "STRING" }
+                                    }
+                                },
+                                "propertyOrdering": ["niche", "items"]
+                            }
+                        }
+                    }
+                };
+                const apiKey = "AIzaSyCESsXjC52VYBP0bBqFxBIpW5_ulB3LwEQ"; // Canvas will provide this at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log("API Response:", result); // Debugging: log the full API response
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+
+                    const jsonString = result.candidates[0].content.parts[0].text;
+                    console.log("Parsed JSON string:", jsonString); // Debugging: log the string before parsing
+
+                    try {
+                        const parsedJson = JSON.parse(jsonString);
+                        console.log("Parsed JSON object:", parsedJson); // Debugging: log the parsed object
+
+                        nicheIdeasContent.innerHTML = ''; // Clear previous ideas
+                        if (Array.isArray(parsedJson) && parsedJson.length > 0) {
+                            parsedJson.forEach(idea => {
+                                const ideaDiv = document.createElement('div');
+                                ideaDiv.className = 'mb-3 p-3 bg-white rounded-lg shadow-sm'; /* Adjusted padding and margin */
+                                ideaDiv.innerHTML = `
+                                    <p class="font-bold text-blue-700 text-lg md:text-xl">${idea.niche}:</p>
+                                    <ul class="list-disc list-inside ml-4 mt-1 md:mt-2">
+                                        ${idea.items.map(item => `<li class="text-base md:text-lg">${item}</li>`).join('')}
+                                    </ul>
+                                `;
+                                nicheIdeasContent.appendChild(ideaDiv);
+                            });
+                            nicheIdeasOutput.classList.remove('hidden');
+                            nicheIdeasOutput.classList.add('is-visible'); // Trigger animation
+                            alertUser("Идеи ниш успешно сгенерированы!", 'success');
+                        } else {
+                            nicheIdeasContent.innerHTML = '<p class="text-red-500 text-base md:text-lg">Не удалось сгенерировать идеи в ожидаемом формате. Попробуйте еще раз.</p>';
+                            nicheIdeasOutput.classList.remove('hidden');
+                            nicheIdeasOutput.classList.add('is-visible');
+                            alertUser("Не удалось обработать идеи ниш. Пожалуйста, попробуйте еще раз.", 'error');
+                        }
+
+                    } catch (parseError) {
+                        console.error("JSON parsing error:", parseError);
+                        nicheIdeasContent.innerHTML = '<p class="text-red-500 text-base md:text-lg">Ошибка при обработке полученных данных. Попробуйте еще раз.</p>';
+                        nicheIdeasOutput.classList.remove('hidden');
+                        nicheIdeasOutput.classList.add('is-visible');
+                        alertUser("Не удалось обработать идеи ниш. Пожалуйста, попробуйте еще раз.", 'error');
+                    }
+
+                } else {
+                    console.error("Unexpected API response structure:", result);
+                    nicheIdeasContent.innerHTML = '<p class="text-red-500 text-base md:text-lg">Не удалось получить идеи ниш. Структура ответа ИИ не соответствует ожидаемой.</p>';
+                    nicheIdeasOutput.classList.remove('hidden');
+                    nicheIdeasOutput.classList.add('is-visible');
+                    alertUser("Не удалось получить идеи ниш. Пожалуйста, попробуйте еще раз.", 'error');
+                }
+
+            } catch (error) {
+                console.error("Error generating niche idea:", error);
+                nicheIdeasContent.innerHTML = '<p class="text-red-500 text-base md:text-lg">Произошла ошибка при генерации идей. Проверьте ваше соединение или попробуйте позже.</p>';
+                nicheIdeasOutput.classList.remove('hidden');
+                nicheIdeasOutput.classList.add('is-visible');
+                alertUser("Ошибка генерации идей ниш. Пожалуйста, попробуйте позже.", 'error');
+            } finally {
+                btnText.textContent = 'Сгенерировать еще идею';
+                btnSpinner.classList.add('hidden');
+                generateNicheBtn.disabled = false;
+                generateNicheBtn.classList.remove('animate-pulse-strong');
+            }
+        });
+
+
+        // Initial setup on window load
+        window.onload = function() {
+            renderItems(); // Display empty table on load
+            calculateTotalProfit(); // Reset total profit
+
+            // Start observing sections for animations
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        };
+    </script>
+</body>
+</html>

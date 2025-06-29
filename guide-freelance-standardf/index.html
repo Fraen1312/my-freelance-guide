@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайд: Мастер Фриланса - Быстрый Старт на Микроуслугах (Стандарт)</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение Google Fonts: Inter (основной) и Montserrat (для заголовков) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0f2f7 0%, #f1f8e9 100%); /* Светлый, воздушный градиент */
+            color: #263238; /* Темно-синий текст для читаемости */
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Animated Section on Scroll */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* Rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            padding: 1.5rem; /* Adjusted for mobile */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e0e0e0; /* Light border */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .card {
+                padding: 2.5rem;
+            }
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Input Field Styles */
+        input[type="text"], input[type="number"], textarea {
+            border-radius: 0.75rem; /* Rounded */
+            padding: 0.75rem 1rem; /* Adjusted for mobile */
+            border: 1px solid #bdbdbd; /* Soft gray border */
+            background-color: #fcfcfc;
+            color: #424242;
+            transition: all 0.3s ease-in-out;
+            font-size: 0.9rem; /* Adjusted for mobile */
+            width: 100%; /* Ensure full width */
+        }
+        @media (min-width: 768px) {
+            input[type="text"], input[type="number"], textarea {
+                padding: 0.85rem 1.25rem;
+                font-size: 1rem;
+            }
+        }
+        input::placeholder {
+            color: #9e9e9e;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            outline: none;
+            border-color: #4caf50; /* Green focus */
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.25);
+            background-color: #ffffff;
+        }
+
+        /* Button Styles */
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem; /* Adjusted for mobile */
+            border-radius: 0.75rem;
+            font-weight: 700;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            width: 100%; /* Full width by default on mobile */
+        }
+        @media (min-width: 768px) {
+            button {
+                padding: 0.9rem 2rem;
+                width: auto; /* Auto width on larger screens */
+            }
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #4caf50 0%, #66bb6a 100%); /* Green gradient */
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #388e3c 0%, #4caf50 100%);
+            box-shadow: 0 10px 25px rgba(56, 142, 60, 0.4);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .btn-delete {
+            background-color: #ef5350; /* Red */
+            color: #ffffff;
+            padding: 0.5rem 1rem; /* Adjusted for mobile */
+            font-size: 0.8rem; /* Adjusted for mobile */
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(239, 83, 80, 0.2);
+        }
+        @media (min-width: 768px) {
+            .btn-delete {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.875rem;
+            }
+        }
+        .btn-delete:hover {
+            background-color: #c62828;
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(198, 40, 40, 0.3);
+        }
+        .btn-telegram {
+            background: linear-gradient(45deg, #2196f3 0%, #1976d2 100%); /* Blue Telegram gradient */
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+            padding: 1rem 2rem; /* Adjusted for mobile */
+            font-size: 1.2rem; /* Adjusted for mobile */
+        }
+        @media (min-width: 768px) {
+            .btn-telegram {
+                padding: 1.2rem 2.5rem;
+                font-size: 1.5rem;
+            }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite;
+        }
+        @keyframes bounce-slow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Profit Table Styles (similar to previous adaptive versions) */
+        .profit-table th, .profit-table td {
+            padding: 0.8rem 1rem; /* Adjusted for mobile */
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.85rem; /* Adjusted for mobile */
+        }
+        @media (min-width: 768px) {
+            .profit-table th, .profit-table td {
+                padding: 1rem 1.25rem;
+                font-size: 0.95rem;
+            }
+        }
+        .profit-table th {
+            background-color: #f5f5f5;
+            font-weight: 700;
+            color: #424242;
+        }
+        .profit-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        /* Mobile Table Adaptation */
+        @media (max-width: 767px) {
+            .profit-table thead { display: none; }
+            .profit-table, .profit-table tbody, .profit-table tr, .profit-table td {
+                display: block;
+                width: 100%;
+            }
+            .profit-table tr {
+                margin-bottom: 0.75rem;
+                border: 1px solid #e0e0e0;
+                border-radius: 0.75rem;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            }
+            .profit-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            .profit-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 1rem;
+                width: calc(50% - 2rem);
+                text-align: left;
+                font-weight: 600;
+                color: #757575;
+            }
+        }
+
+        /* Progress Circle Styles */
+        .progress-circle {
+            position: relative;
+            width: 100px; /* Smaller for mobile */
+            height: 100px;
+            border-radius: 50%;
+            background: conic-gradient(#4caf50 0%, #388e3c var(--progress), #e0e0e0 var(--progress), #e0e0e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 3px 8px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 768px) {
+            .progress-circle {
+                width: 140px;
+                height: 140px;
+            }
+        }
+        .progress-circle::after {
+            content: '';
+            position: absolute;
+            width: 80px; /* Adjusted */
+            height: 80px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.05);
+        }
+        @media (min-width: 768px) {
+            .progress-circle::after {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            font-size: 1.6rem; /* Adjusted */
+            font-weight: 800;
+            color: #388e3c;
+        }
+        @media (min-width: 768px) {
+            .progress-circle span {
+                font-size: 2rem;
+            }
+        }
+
+        /* Custom Alert/Toast Styles */
+        .custom-alert {
+            animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+            padding: 0.6rem 1rem; /* Adjusted for mobile */
+            min-width: 220px; /* Minimum width */
+            max-width: 90%; /* Max width relative to viewport */
+        }
+        @media (min-width: 768px) {
+            .custom-alert {
+                padding: 0.8rem 1.2rem;
+                min-width: 250px;
+                max-width: 350px;
+            }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-50px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl md:rounded-2xl overflow-hidden my-6 md:my-8 p-6 md:p-10">
+
+        <!-- Header -->
+        <header class="text-center mb-10 md:mb-14 animated-section">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-800 leading-tight">
+                Мастер Фриланса: <br><span class="text-green-600 text-2xl md:text-3xl lg:text-4xl">Быстрый Старт на Микроуслугах</span>
+            </h1>
+            <p class="mt-4 md:mt-5 text-lg md:text-xl text-gray-600 font-medium">
+                Гайд "СТАНДАРТ" – Ваш первый шаг к доходу!
+            </p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Начните зарабатывать на своих навыках!
+                </h2>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-3 md:mb-4">
+                    Этот гайд создан для всех, кто хочет начать получать доход онлайн, используя свои простые навыки, не требующие больших инвестиций или сложного обучения. Если вы умеете писать, переводить, искать информацию, создавать простые картинки – это для вас!
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                    Мы покажем, как превратить ваши базовые умения в стабильный источник дохода через **микроуслуги на фриланс-платформах.** Это быстро, понятно и доступно каждому.
+                </p>
+            </div>
+        </section>
+
+        <!-- What are Micro-services? -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card bg-lime-50">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-green-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Что такое Микроуслуги и почему это выгодно?
+                </h2>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-6">
+                    Микроуслуги – это небольшие, конкретные задачи, которые вы выполняете для клиентов за фиксированную плату. Например: написать статью, перевести текст, отредактировать фото, создать логотип, собрать информацию, озвучить видео.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-100 p-5 rounded-xl shadow-sm text-center">
+                        <p class="text-4xl mb-3">💻</p>
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">Работа из дома</h3>
+                        <p class="text-gray-600 text-sm">Всё, что нужно – компьютер и интернет.</p>
+                    </div>
+                    <div class="bg-amber-100 p-5 rounded-xl shadow-sm text-center">
+                        <p class="text-4xl mb-3">⏰</p>
+                        <h3 class="text-lg font-semibold text-amber-800 mb-2">Гибкий график</h3>
+                        <p class="text-gray-600 text-sm">Работайте, когда удобно вам, совмещайте с учебой/работой.</p>
+                    </div>
+                    <div class="bg-purple-100 p-5 rounded-xl shadow-sm text-center">
+                        <p class="text-4xl mb-3">🚀</p>
+                        <h3 class="text-lg font-semibold text-purple-800 mb-2">Быстрый старт</h3>
+                        <p class="text-gray-600 text-sm">Начните получать первые заказы уже сегодня!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Шаги к заработку -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-orange-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваш Пошаговый План Запуска
+                </h2>
+                <div class="space-y-8">
+                    <!-- Шаг 1 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-5 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl md:text-2xl font-bold mr-4 mb-2 md:mb-0">
+                            1
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Шаг 1: Определитесь со своей услугой</h3>
+                            <p class="text-base md:text-lg text-gray-700">
+                                Не нужно быть экспертом во всем! Начните с того, что у вас хорошо получается или что вы готовы быстро освоить:
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 pl-3 md:pl-4">
+                                <li>**Тексты:** Написание статей, постов, описание товаров.</li>
+                                <li>**Переводы:** Если знаете иностранный язык.</li>
+                                <li>**Дизайн:** Создание простых логотипов, обработка фото, баннеров.</li>
+                                <li>**Данные:** Сбор информации, ввод данных, сортировка.</li>
+                                <li>**Ассистент:** Помощь в задачах, которые можно сделать онлайн.</li>
+                            </ul>
+                            <p class="text-base md:text-lg text-gray-700 mt-3">
+                                **Лайфхак:** Подумайте, за что к вам уже обращались знакомые. Возможно, это и есть ваша первая микроуслуга!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 2 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-5 rounded-xl shadow-sm border-l-4 border-green-500">
+                        <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-600 text-white flex items-center justify-center text-xl md:text-2xl font-bold mr-4 mb-2 md:mb-0">
+                            2
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Шаг 2: Выберите платформу и создайте профиль</h3>
+                            <p class="text-base md:text-lg text-gray-700">
+                                Существуют специальные фриланс-платформы, где встречаются исполнители и заказчики. Для старта отлично подойдут:
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 pl-3 md:pl-4">
+                                <li>**Kwork (русскоязычный):** Популярен для микроуслуг. Вы создаете "кворк" (предложение услуги) с фиксированной ценой.</li>
+                                <li>**Fiverr (международный):** Аналогичная модель "гигов" (gigs) для широкой аудитории.</li>
+                                <li>**YouDo (для локальных услуг):** Если ваша услуга может быть оказана офлайн в вашем городе.</li>
+                            </ul>
+                            <p class="text-base md:text-lg text-gray-700 mt-3">
+                                **Ваш профиль:** Заполните его максимально подробно. Добавьте качественное фото, кратко опишите свои навыки, укажите, какие услуги предлагаете. Чем понятнее профиль, тем больше доверия.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 3 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-5 rounded-xl shadow-sm border-l-4 border-purple-500">
+                        <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-600 text-white flex items-center justify-center text-xl md:text-2xl font-bold mr-4 mb-2 md:mb-0">
+                            3
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Шаг 3: Разместите свои первые предложения и получите заказ!</h3>
+                            <p class="text-base md:text-lg text-gray-700">
+                                Создайте 1-3 предложения (кворка/гига) для ваших услуг.
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 pl-3 md:pl-4">
+                                <li>**Заголовок:** Четко и ясно, что вы предлагаете (например, "Напишу 500 слов текста для вашего сайта").</li>
+                                <li>**Описание:** Подробно, что входит в услугу, сроки, что нужно от заказчика.</li>
+                                <li>**Цена:** Начните с конкурентной, возможно, чуть ниже рынка, чтобы получить первые отзывы.</li>
+                                <li>**Примеры работ (Портфолио):** Даже если нет реальных заказов, сделайте 1-2 примера самостоятельно.</li>
+                            </ul>
+                            <p class="text-base md:text-lg text-gray-700 mt-3">
+                                **Лайфхак:** Активно откликайтесь на заказы, которые ищут исполнителей (на Kwork это "Биржа", на Fiverr – "Buyer Requests"). Предложите свою услугу там!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Чек-лист быстрого старта -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card bg-blue-50">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-cyan-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваш Чек-лист: Действуй сейчас!
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md focus:ring-blue-500 transition duration-150 ease-in-out">
+                        <span class="ml-3 text-base text-gray-800 font-medium">Определиться с 1-2 услугами, которые буду предлагать.</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md focus:ring-blue-500 transition duration-150 ease-in-out">
+                        <span class="ml-3 text-base text-gray-800 font-medium">Зарегистрироваться на Kwork/Fiverr и заполнить профиль.</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md focus:ring-blue-500 transition duration-150 ease-in-out">
+                        <span class="ml-3 text-base text-gray-800 font-medium">Создать и опубликовать 1-3 своих предложения (кворка/гига).</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-white rounded-lg shadow-sm cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md focus:ring-blue-500 transition duration-150 ease-in-out">
+                        <span class="ml-3 text-base text-gray-800 font-medium">Откликнуться на 3-5 запросов заказчиков.</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Motivational Speech -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card bg-gradient-to-r from-teal-50 to-lime-50">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-green-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваш Успех Начинается с Первого Шага!
+                </h2>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
+                    Не бойтесь начать. Ваше время и навыки – это ценный ресурс, который можно превратить в реальные деньги. Миллионы людей по всему миру уже зарабатывают на фрилансе, и вы тоже сможете! Этот гайд дал вам необходимый план. Теперь дело за вами: действуйте, учитесь на каждом заказе и расширяйте свои горизонты.
+                </p>
+                <div class="text-center mt-6 md:mt-8">
+                    <div class="progress-circle mx-auto" style="--progress: 70%;">
+                        <span>70%</span>
+                    </div>
+                    <p class="mt-4 text-gray-700 text-lg font-bold">
+                        70% успеха – в вашей решимости начать!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Telegram Channel Promotion & Copyright -->
+        <footer class="text-center pt-8 border-t-2 border-gray-200 mt-10 md:mt-14 animated-section">
+            <p class="text-xl md:text-2xl font-bold text-gray-700 mb-4">
+                Больше советов и схем в моем Telegram!
+            </p>
+            <p class="text-base md:text-lg text-gray-600 mb-6">
+                Присоединяйтесь к сообществу и узнавайте о новых возможностях заработка первыми.
+            </p>
+            <a href="https://t.me/dropshop234" target="_blank" class="inline-block btn-telegram text-white text-lg px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 animate-bounce-slow">
+                <svg class="w-6 h-6 mr-3 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.999 12c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7 7-3.13 7-7zm-7.25 4.71l-5.69-2.22c-.41-.16-.41-.57 0-.73l12.87-5.02c.3-.12.55.15.35.43L13 14.88c-.2.27-.37.49-.64.55l-2.61.52c-.52.1-.53-.13 0-.25l2.64-1.92c.2-.14.3-.39.22-.64l-.9-2.8c-.1-.3-.42-.36-.61-.15l-1.8 1.54z"></path></svg>
+                Перейти в Telegram-канал
+            </a>
+            <p class="mt-6 text-xs md:text-sm text-gray-500">
+                Все права защищены. <span class="font-bold text-gray-600">© [Jesus/DropShop] [2025 год]</span>.
+                Этот гайд является моей интеллектуальной собственностью.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const animatedSections = document.querySelectorAll('.animated-section');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1 // Section becomes visible when 10% of it is in view
+        });
+
+        animatedSections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Custom Alert/Toast Function
+        function alertUser(message, type = 'info') {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                clearTimeout(existingAlert.dataset.timeoutId);
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = 'fixed top-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg shadow-xl z-50 transition-all duration-300 transform custom-alert';
+
+            let bgColor = 'bg-blue-500';
+            let iconSvg = '';
+            if (type === 'success') {
+                bgColor = 'bg-green-500';
+                iconSvg = '<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>';
+            } else if (type === 'error') {
+                bgColor = 'bg-red-500';
+                iconSvg = '<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            } else {
+                iconSvg = '<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>';
+            }
+
+            alertDiv.classList.add(bgColor, 'text-white');
+            alertDiv.innerHTML = `
+                <p class="flex items-center text-base">
+                    ${iconSvg}
+                    ${message}
+                </p>
+                <button class="absolute top-0.5 right-1 text-white text-xl font-bold p-1 leading-none" onclick="document.getElementById('customAlert').remove()">
+                    &times;
+                </button>
+            `;
+            document.body.appendChild(alertDiv);
+
+            const timeoutId = setTimeout(() => {
+                alertDiv.remove();
+            }, 3500);
+            alertDiv.dataset.timeoutId = timeoutId;
+        }
+
+
+        // Placeholder for calculator functionality - not in Standard guide for this topic, but structure kept for consistency.
+        // It's removed from HTML but the script functions might remain if they were truly general.
+        // For this specific 'Standard' guide, I've simplified it significantly, so no profit calculator.
+        // If a calculator is desired for Micro-services (e.g., hours * rate), it would be added here.
+        // As per the prompt, for Standard, it's just general info.
+
+        // Initial setup on window load
+        window.onload = function() {
+            // Start observing sections for animations
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        };
+    </script>
+</body>
+</html>

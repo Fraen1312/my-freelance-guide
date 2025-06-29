@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Элитный Гайд: Создание Империи Перепродаж</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение Google Fonts: Montserrat (для заголовков), Playfair Display (для особых текстов), Inter (основной) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a202c 0%, #000000 100%); /* Глубокий, роскошный темный градиент */
+            color: #e2e8f0; /* Светлый текст для контраста */
+            line-height: 1.8;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+        }
+        .playfair-display {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        /* Animated Section on Scroll */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: rgba(255, 255, 255, 0.05); /* Semi-transparent white background */
+            backdrop-filter: blur(10px); /* Blur effect */
+            border-radius: 2.5rem; /* Max rounded corners */
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4), 0 0 50px rgba(255, 215, 0, 0.1); /* Deep shadow with golden glow */
+            padding: 2.5rem; /* Adjusted for mobile */
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Thin light border */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .card {
+                padding: 3.5rem;
+            }
+        }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .card {
+                padding: 4.5rem;
+            }
+        }
+        .card:hover {
+            transform: translateY(-12px) scale(1.01); /* Noticeable lift on hover */
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2);
+        }
+
+        /* Input Field Styles */
+        input[type="text"], input[type="number"], textarea {
+            border-radius: 1.25rem; /* Very rounded */
+            padding: 1rem 1.5rem; /* Adjusted for mobile */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light semi-transparent border */
+            background-color: rgba(255, 255, 255, 0.08); /* Very light semi-transparent background */
+            color: #ffffff;
+            transition: all 0.4s ease-in-out;
+            font-size: 1rem; /* Base font size */
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100%; /* Ensure full width */
+        }
+        @media (min-width: 768px) {
+            input[type="text"], input[type="number"], textarea {
+                padding: 1.2rem 1.8rem;
+                font-size: 1.1rem;
+            }
+        }
+        input::placeholder { /* Placeholder styling */
+            color: rgba(255, 255, 255, 0.5);
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            outline: none;
+            border-color: #ffd700; /* Gold focus */
+            box-shadow: 0 0 0 6px rgba(255, 215, 0, 0.3), inset 0 2px 5px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Animated Button Styles */
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem; /* Adjusted for mobile */
+            border-radius: 1.5rem;
+            font-weight: 800;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            background-size: 200% auto;
+            width: 100%; /* Full width by default on mobile */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            button {
+                padding: 1.3rem 3rem;
+                width: auto; /* Auto width on larger screens */
+            }
+        }
+        button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease-out, height 0.6s ease-out;
+            z-index: 0;
+        }
+        button:hover:before {
+            width: 350%;
+            height: 350%;
+        }
+        button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ffd700 0%, #ffa500 100%); /* Gold gradient */
+            color: #1a202c; /* Dark text on gold */
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+            border: 1px solid #ffdb58;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #ffa500 0%, #ffd700 100%);
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.5);
+            transform: translateY(-4px) scale(1.03);
+            animation: pulse-gold 1.5s infinite;
+        }
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 20px 50px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 25px 60px rgba(255, 215, 0, 0.7); }
+        }
+
+        .btn-delete {
+            background-color: #dc2626; /* Deep red */
+            color: #ffffff;
+            padding: 0.6rem 1.2rem; /* Adjusted for mobile */
+            font-size: 0.9rem; /* Adjusted for mobile */
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+        }
+        @media (min-width: 768px) {
+            .btn-delete {
+                padding: 0.8rem 1.6rem;
+                font-size: 1rem;
+            }
+        }
+        .btn-delete:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(185, 28, 28, 0.4);
+        }
+        .btn-telegram {
+            background: linear-gradient(45deg, #0088cc 0%, #004d99 100%); /* Deep blue Telegram gradient */
+            color: #ffffff;
+            box-shadow: 0 15px 40px rgba(0, 136, 204, 0.4);
+            padding: 1.5rem 3rem; /* Increased padding for mobile */
+            font-size: 2rem; /* Increased font size for mobile */
+        }
+        @media (min-width: 768px) {
+            .btn-telegram {
+                padding: 1.5rem 5rem;
+                font-size: 2.5rem;
+            }
+        }
+        .btn-telegram:hover {
+            background: linear-gradient(45deg, #004d99 0%, #0088cc 100%);
+            box-shadow: 0 20px 50px rgba(0, 136, 204, 0.5);
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        /* Profit Table Styles */
+        .profit-table th, .profit-table td {
+            padding: 1rem 1.2rem; /* Adjusted for mobile */
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem; /* Adjusted for mobile */
+            color: #e2e8f0;
+        }
+        @media (min-width: 768px) {
+            .profit-table th, .profit-table td {
+                padding: 1.5rem 2rem;
+                font-size: 1.15rem;
+            }
+        }
+        .profit-table th {
+            background-color: rgba(255, 255, 255, 0.08);
+            font-weight: 700;
+            color: #cbd5e0;
+        }
+        .profit-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        /* Mobile Table Adaptation */
+        @media (max-width: 767px) { /* Small screens */
+            .profit-table thead { display: none; }
+            .profit-table, .profit-table tbody, .profit-table tr, .profit-table td {
+                display: block;
+                width: 100%;
+            }
+            .profit-table tr {
+                margin-bottom: 1.5rem; /* Increased margin between rows */
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 1.5rem;
+                overflow: hidden;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            }
+            .profit-table td {
+                text-align: right;
+                padding-left: 50%; /* Space for data-label */
+                position: relative;
+            }
+            .profit-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 1.5rem; /* Padding for label */
+                width: calc(50% - 3rem); /* Adjust width */
+                text-align: left;
+                font-weight: 600;
+                color: #a0aec0;
+            }
+        }
+
+        /* Progress Circle Styles */
+        .progress-circle {
+            position: relative;
+            width: 140px; /* Smaller for mobile */
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(#34d399 0%, #10b981 var(--progress), rgba(255, 255, 255, 0.1) var(--progress), rgba(255, 255, 255, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.2), 0 10px 30px rgba(0,0,0,0.25);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+        @media (min-width: 768px) {
+            .progress-circle {
+                width: 180px;
+                height: 180px;
+            }
+        }
+        .progress-circle::after {
+            content: '';
+            position: absolute;
+            width: 120px; /* Adjusted */
+            height: 120px;
+            border-radius: 50%;
+            background: #1a202c; /* Dark background of the inner circle */
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 768px) {
+            .progress-circle::after {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem; /* Adjusted */
+            font-weight: 900;
+            color: #34d399; /* Green color for progress */
+        }
+        @media (min-width: 768px) {
+            .progress-circle span {
+                font-size: 3rem;
+            }
+        }
+
+        /* Custom Alert/Toast Styles */
+        .custom-alert {
+            animation: slideIn 0.6s forwards, fadeOut 0.6s 3s forwards;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.2rem 2rem; /* Adjusted for mobile */
+            min-width: 280px; /* Minimum width */
+            max-width: 90%; /* Max width relative to viewport */
+        }
+        @media (min-width: 768px) {
+            .custom-alert {
+                padding: 1.5rem 2.5rem;
+                min-width: 350px;
+                max-width: 500px;
+            }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ffd700; /* Gold spinner */
+            border-radius: 50%;
+            width: 24px; /* Adjusted */
+            height: 24px; /* Adjusted */
+            animation: spin 1s linear infinite;
+        }
+        @media (min-width: 768px) {
+            .spinner {
+                width: 28px;
+                height: 28px;
+            }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 lg:p-12">
+
+    <div class="max-w-7xl mx-auto bg-gray-900 shadow-4xl rounded-3xl md:rounded-4xl lg:rounded-5xl overflow-hidden my-8 md:my-12 p-6 md:p-10 lg:p-16 border border-gray-800">
+
+        <!-- Header: Elite Branding -->
+        <header class="text-center mb-16 md:mb-20 lg:mb-24 animated-section">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-400">
+                ЭЛИТНЫЙ ГАЙД:
+                <br><span class="text-white text-3xl md:text-5xl lg:text-6xl">СОЗДАНИЕ ИМПЕРИИ ПЕРЕПРОДАЖ</span>
+            </h1>
+            <p class="mt-6 md:mt-8 text-xl md:text-2xl lg:text-3xl text-gray-400 playfair-display">
+                Ваш доступ к стратегиям, которых нет ни у кого.
+            </p>
+        </header>
+
+        <!-- Introduction: The Path to Mastery -->
+        <section class="mb-16 md:mb-20 lg:mb-24 animated-section">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-400 mb-6 md:mb-8 lg:mb-10 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Путь к Финансовой Империи
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Это не просто гайд. Это **мастер-план** для тех, кто готов выйти за рамки обычных продаж и построить нечто грандиозное. Вы получите доступ к тщательно отобранным, проверенным стратегиям и лайфхакам, которые используются лишь избранными для достижения колоссальной прибыли. Если вы искали то, чего нет в открытом доступе, вы это нашли.
+                </p>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed playfair-display">
+                    "Знание — это сила. Элитное знание — это богатство."
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 1: Elite Global Sourcing & Hidden Assets -->
+        <section class="mb-16 md:mb-20 lg:mb-24 animated-section">
+            <div class="card bg-gradient-to-br from-gray-800 to-black">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-amber-400 mb-6 md:mb-8 lg:mb-10 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Сорсинг Элитного Уровня: Тайные Источники Прибыли
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Откройте для себя каналы, где другие не ищут. Это не просто "барахолки", это места, где рождаются состояния.
+                </p>
+                <ul class="list-none space-y-6 md:space-y-8 text-lg md:text-xl text-gray-200 pl-4 md:pl-6">
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-yellow-500 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Международные ликвидационные аукционы и таможенный конфискат:</span> Доступ к товарам, изъятым на границе или распродаваемым международными гигантами. Помните: здесь необходима дотошность и знание логистики.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-green-500 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Прямые контакты с фабриками и дистрибьюторами:</span> Как выйти на производителей небольших партий высококачественного товара и получать эксклюзивные цены до того, как они попадут на широкий рынок. Искусство B2B-переговоров.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-red-500 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Анализ "проблемных" активов:</span> Научитесь находить и выкупать по бросовым ценам товары у компаний, находящихся на грани банкротства, или у частных лиц, которым срочно нужны деньги.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Master Negotiation & Sales Psychology -->
+        <section class="mb-16 md:mb-20 lg:mb-24 animated-section">
+            <div class="card bg-gradient-to-br from-blue-900 to-black">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-400 mb-6 md:mb-8 lg:mb-10 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Психология Мастер-Продаж: Влияние на Решения
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Искусство продавать – это не о манипуляциях, а о глубоком понимании человеческой психологии и создании ценности.
+                </p>
+                <ul class="list-none space-y-6 md:space-y-8 text-lg md:text-xl text-gray-200 pl-4 md:pl-6">
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-pink-500 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Нейромаркетинг в описаниях:</span> Как использовать язык, который "разговаривает" напрямую с мозгом покупателя, активируя его желания и отключая сомнения. Эмоциональные триггеры и призывы к действию, от которых невозможно отказаться.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-orange-500 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Стратегии дефицита и срочности:</span> Как создать ажиотаж вокруг вашего товара и мотивировать на мгновенную покупку, используя психологию упущенной выгоды.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-teal-500 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Мастерство ведения диалога:</span> От скриптов холодных звонков до отработки возражений в переписке – превращайте "подумаю" в "беру!".
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Risk Management & Legal Framework -->
+        <section class="mb-16 md:mb-20 lg:mb-24 animated-section">
+            <div class="card bg-gradient-to-br from-red-900 to-black">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-red-400 mb-6 md:mb-8 lg:mb-10 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Управление Рисками и Юридический Щит
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    На высоких уровнях риски возрастают, но ими можно и нужно управлять. Защитите свой капитал и свою репутацию.
+                </p>
+                <ul class="list-none space-y-6 md:space-y-8 text-lg md:text-xl text-gray-200 pl-4 md:pl-6">
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-gray-400 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Аутентификация и проверка подлинности:</span> Как отличить подделку от оригинала на элитном рынке. Методы проверки и сотрудничество с экспертами.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-lime-400 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Работа с возвратами и претензиями:</span> Как минимизировать потери и поддерживать безупречную репутацию даже в сложных ситуациях.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-cyan-400 mr-4 md:mr-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                        <div>
+                            <span class="font-bold text-white text-xl md:text-2xl">Базовые юридические аспекты:</span> Что нужно знать о налогах, правах потребителей и оформлении сделок при работе с большими объемами. (Важное примечание: это не заменяет юридическую консультацию, но дает понимание).
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Interactive Global Trend Analyzer -->
+        <section class="mb-16 md:mb-20 lg:mb-24 animated-section">
+            <div class="card bg-gradient-to-br from-purple-900 to-black">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-400 mb-6 md:mb-8 lg:mb-10 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    ЭЛИТНЫЙ ИНСТРУМЕНТ: Генератор Глобальных Трендов!
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Будьте всегда на шаг впереди рынка! Наш эксклюзивный ИИ-анализатор поможет вам выявить самые перспективные и высокомаржинальные ниши и продукты, основываясь на вашем запросе.
+                </p>
+                <div class="bg-gray-800 p-6 md:p-10 rounded-2xl shadow-inner mb-8 md:mb-10">
+                    <label for="trendCategory" class="block text-gray-300 text-lg md:text-2xl font-semibold mb-4 md:mb-5">Опишите категорию ваших интересов (например: "роскошные аксессуары", "высокотехнологичная электроника", "коллекционные предметы"):</label>
+                    <textarea id="trendCategory" rows="3" placeholder="Введите здесь свои интересы для анализа..." class="w-full text-base md:text-lg"></textarea>
+                    <button id="analyzeTrendsBtn" class="btn-primary w-full mt-6 md:mt-8">
+                        <span id="analyzeBtnText">АНАЛИЗИРОВАТЬ ТРЕНДЫ</span>
+                        <div id="analyzeBtnSpinner" class="hidden spinner ml-3 md:ml-4"></div>
+                    </button>
+                </div>
+
+                <div id="trendOutput" class="bg-gray-900 p-6 md:p-10 rounded-2xl shadow-2xl mt-8 md:mt-12 hidden animated-section">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400 mb-6 md:mb-8">Ваши Элитные Трендовые Идеи:</h3>
+                    <div id="trendContent" class="text-base md:text-lg text-gray-200 leading-relaxed space-y-4 md:space-y-6">
+                        <!-- Trend ideas will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Profit Calculator with Fees -->
+        <section class="mb-16 md:mb-20 lg:mb-24 animated-section" id="profit-calculator">
+            <div class="card bg-gradient-to-br from-green-900 to-black">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-green-400 mb-6 md:mb-8 lg:mb-10 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    ЭЛИТНЫЙ КАЛЬКУЛЯТОР ПРИБЫЛИ (с учетом всех расходов)!
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
+                    Получите максимально точный расчет чистой прибыли, учитывая скрытые расходы. Планируйте каждую сделку как профессионал.
+                </p>
+                <div class="bg-gray-800 p-6 md:p-10 rounded-2xl shadow-inner mb-8 md:mb-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8">
+                        <div>
+                            <label for="calcProductName" class="block text-gray-300 text-lg md:text-xl font-semibold mb-3 md:mb-4">Название товара:</label>
+                            <input type="text" id="calcProductName" placeholder="Например: Редкий винтажный Rolex" class="w-full text-base md:text-lg">
+                        </div>
+                        <div>
+                            <label for="calcPurchasePrice" class="block text-gray-300 text-lg md:text-xl font-semibold mb-3 md:mb-4">Цена покупки (₽):</label>
+                            <input type="number" id="calcPurchasePrice" min="0" value="0" class="w-full text-base md:text-lg">
+                        </div>
+                        <div>
+                            <label for="calcSellingPrice" class="block text-gray-300 text-lg md:text-xl font-semibold mb-3 md:mb-4">Цена продажи (₽):</label>
+                            <input type="number" id="calcSellingPrice" min="0" value="0" class="w-full text-base md:text-lg">
+                        </div>
+                        <div>
+                            <label for="calcQuantity" class="block text-gray-300 text-lg md:text-xl font-semibold mb-3 md:mb-4">Количество:</label>
+                            <input type="number" id="calcQuantity" min="1" value="1" class="w-full text-base md:text-lg">
+                        </div>
+                        <div>
+                            <label for="platformFee" class="block text-gray-300 text-lg md:text-xl font-semibold mb-3 md:mb-4">Комиссия платформы (%):</label>
+                            <input type="number" id="platformFee" min="0" value="0" max="100" class="w-full text-base md:text-lg">
+                        </div>
+                        <div>
+                            <label for="shippingCost" class="block text-gray-300 text-lg md:text-xl font-semibold mb-3 md:mb-4">Стоимость доставки (₽):</label>
+                            <input type="number" id="shippingCost" min="0" value="0" class="w-full text-base md:text-lg">
+                        </div>
+                        <div>
+                            <label for="preparationCost" class="block text-gray-300 text-lg md:text-xl font-semibold mb-3 md:mb-4">Затраты на подготовку (₽):</label>
+                            <input type="number" id="preparationCost" min="0" value="0" class="w-full text-base md:text-lg">
+                        </div>
+                    </div>
+                    <button onclick="addAdvancedItem()" class="btn-primary w-full mt-6 md:mt-8">
+                        <span>ДОБАВИТЬ ТОВАР ДЛЯ РАСЧЕТА</span>
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl md:rounded-2xl lg:rounded-3xl shadow-2xl md:shadow-3xl">
+                    <table class="min-w-full profit-table bg-gray-900">
+                        <thead>
+                            <tr>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs md:text-sm text-gray-500 tracking-wider">Название</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs md:text-sm text-gray-500 tracking-wider">Покупка (₽)</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs md:text-sm text-gray-500 tracking-wider">Продажа (₽)</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs md:text-sm text-gray-500 tracking-wider">Кол-во</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs md:text-sm text-gray-500 tracking-wider">Расходы (₽)</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs md:text-sm text-gray-500 tracking-wider">Чистая прибыль (₽)</th>
+                                <th class="py-4 px-5 uppercase font-extrabold text-xs md:text-sm text-gray-500 tracking-wider">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="profitTableBody" class="text-gray-200">
+                            <!-- Items will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-8 md:mt-12 p-8 md:p-12 bg-green-900 rounded-3xl md:rounded-4xl shadow-xl text-center animated-section">
+                    <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-green-400 mb-6 md:mb-8">
+                        Ваша Общая Чистая Прибыль:
+                    </h3>
+                    <p id="totalProfit" class="text-6xl md:text-7xl lg:text-8xl font-extrabold text-green-300 leading-none animate-pulse-strong">
+                        0.00 ₽
+                    </p>
+                    <p class="text-lg md:text-xl text-gray-300 mt-4 md:mt-6 playfair-display">
+                        Каждая сделка приближает вас к статусу финансового магната.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Motivational Speech for Elite -->
+        <section class="mb-16 md:mb-20 lg:mb-24 animated-section">
+            <div class="card bg-gradient-to-r from-yellow-900 to-orange-900">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-400 mb-6 md:mb-8 lg:mb-10 flex items-center">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 mr-4 md:mr-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15L6 12.82l1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваше Наследие Начинается Сегодня!
+                </h2>
+                <p class="text-lg md:text-xl text-gray-200 leading-relaxed mb-6 md:mb-8">
+                    Вы не просто реселлер. Вы — архитектор своей финансовой империи. Знания, которые вы получили, это не просто информация, это ключи к безграничным возможностям. Не останавливайтесь на малом. Исследуйте, рискуйте, анализируйте и стройте системы. Ваша настойчивость, уникальное видение и стремление к совершенству станут фундаментом для создания значительного капитала. Мир ждет ваших идей. Действуйте масштабно, и пусть ваше имя станет синонимом успеха!
+                </p>
+                <div class="text-center mt-8 md:mt-12">
+                    <div class="progress-circle mx-auto" style="--progress: 99%;">
+                        <span>99%</span>
+                    </div>
+                    <p class="mt-4 md:mt-6 text-gray-300 text-lg md:text-2xl font-bold playfair-display">
+                        99% вашей Элитной Империи – это ваш непоколебимый дух!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Telegram Channel Promotion & Copyright -->
+        <footer class="text-center pt-12 md:pt-16 lg:pt-20 border-t-2 border-gray-700 mt-16 md:mt-20 lg:mt-28 animated-section">
+            <p class="text-2xl md:text-3xl font-bold text-gray-300 mb-6 md:mb-8">
+                Присоединяйтесь к ЭЛИТНОМУ КЛУБУ Мастеров Перепродаж!
+            </p>
+            <p class="text-lg md:text-xl text-gray-400 mb-8 md:mb-10">
+                Получите эксклюзивные обновления, новые стратегии и доступ к сети единомышленников, которые меняют правила игры.
+            </p>
+            <a href="https://t.me/dropshop234" target="_blank" class="inline-block btn-telegram text-white text-2xl md:text-3xl px-8 md:px-10 py-4 md:py-5 rounded-full font-extrabold shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-105 animate-bounce-slow">
+                <svg class="w-8 h-8 md:w-9 md:h-9 mr-4 md:mr-6 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.999 12c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7 7-3.13 7-7zm-7.25 4.71l-5.69-2.22c-.41-.16-.41-.57 0-.73l12.87-5.02c.3-.12.55.15.35.43L13 14.88c-.2.27-.37.49-.64.55l-2.61.52c-.52.1-.53-.13 0-.25l2.64-1.92c.2-.14.3-.39.22-.64l-.9-2.8c-.1-.3-.42-.36-.61-.15l-1.8 1.54z"></path></svg>
+                ПЕРЕЙТИ В TELEGRAM-КАНАЛ
+            </a>
+            <p class="mt-10 md:mt-14 text-sm md:text-base text-gray-500 playfair-display">
+                Все права защищены. <span class="font-extrabold text-gray-400">© [Jesus/DropShop] [2025 год]</span>.
+                Этот ЭЛИТНЫЙ гайд является моей интеллектуальной собственностью и предназначен только для избранных.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Smooth scroll animation for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations (sections fading in)
+        const animatedSections = document.querySelectorAll('.animated-section');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.05 // Section becomes visible when 5% of it is in view
+        });
+
+        // Profit Calculator Logic
+        let advancedItems = []; // Array to store product data for advanced calculator
+
+        /**
+         * Adds an item to the advanced profit calculator table.
+         * Validates inputs and calculates profit considering fees and costs.
+         */
+        function addAdvancedItem() {
+            const productNameInput = document.getElementById('calcProductName');
+            const purchasePriceInput = document.getElementById('calcPurchasePrice');
+            const sellingPriceInput = document.getElementById('calcSellingPrice');
+            const quantityInput = document.getElementById('calcQuantity');
+            const platformFeeInput = document.getElementById('platformFee');
+            const shippingCostInput = document.getElementById('shippingCost');
+            const preparationCostInput = document.getElementById('preparationCost');
+
+            const productName = productNameInput.value;
+            const purchasePrice = parseFloat(purchasePriceInput.value);
+            const sellingPrice = parseFloat(sellingPriceInput.value);
+            const quantity = parseInt(quantityInput.value);
+            const platformFee = parseFloat(platformFeeInput.value) / 100; // Convert percentage to decimal
+            const shippingCost = parseFloat(shippingCostInput.value);
+            const preparationCost = parseFloat(preparationCostInput.value);
+
+            // Input validation
+            if (!productName || productName.trim() === '') {
+                alertUser("Пожалуйста, введите название товара.", 'error');
+                return;
+            }
+            if (isNaN(purchasePrice) || purchasePrice < 0) {
+                alertUser("Пожалуйста, введите корректную цену покупки (число не менее 0).", 'error');
+                return;
+            }
+            if (isNaN(sellingPrice) || sellingPrice < 0) {
+                alertUser("Пожалуйста, введите корректную цену продажи (число не менее 0).", 'error');
+                return;
+            }
+            if (isNaN(quantity) || quantity < 1) {
+                alertUser("Пожалуйста, введите корректное количество (число не менее 1).", 'error');
+                return;
+            }
+            if (isNaN(platformFee) || platformFee < 0 || platformFee > 1) {
+                alertUser("Пожалуйста, введите корректную комиссию платформы (от 0 до 100%).", 'error');
+                return;
+            }
+            if (isNaN(shippingCost) || shippingCost < 0) {
+                alertUser("Пожалуйста, введите корректную стоимость доставки (число не менее 0).", 'error');
+                return;
+            }
+            if (isNaN(preparationCost) || preparationCost < 0) {
+                alertUser("Пожалуйста, введите корректные затраты на подготовку (число не менее 0).", 'error');
+                return;
+            }
+
+            // Calculate costs and profit
+            const totalSellingPrice = sellingPrice * quantity;
+            const totalPurchasePrice = purchasePrice * quantity;
+            const totalPlatformFee = totalSellingPrice * platformFee;
+            const totalShippingCost = shippingCost * quantity; // Assuming shipping per item
+            const totalPreparationCost = preparationCost * quantity; // Assuming prep per item
+
+            const totalExpenses = totalPurchasePrice + totalPlatformFee + totalShippingCost + totalPreparationCost;
+            const netProfit = totalSellingPrice - totalExpenses;
+
+            // No immediate alert for negative profit here, but will be red in table
+            // if (netProfit < 0) {
+            //      alertUser("Чистая прибыль отрицательна. Проверьте цены или расходы.", 'error');
+            // }
+
+            const newItem = {
+                id: Date.now(), // Unique ID for each item
+                name: productName,
+                purchase: purchasePrice,
+                selling: sellingPrice,
+                quantity: quantity,
+                totalExpenses: totalExpenses, // Total expenses for the quantity
+                netProfit: netProfit
+            };
+
+            advancedItems.push(newItem); // Add new item to the array
+            renderAdvancedItems(); // Update table display
+            calculateTotalAdvancedProfit(); // Recalculate total profit
+
+            // Clear input fields
+            productNameInput.value = '';
+            purchasePriceInput.value = '0';
+            sellingPriceInput.value = '0';
+            quantityInput.value = '1';
+            platformFeeInput.value = '0';
+            shippingCostInput.value = '0';
+            preparationCostInput.value = '0';
+
+            alertUser(`Товар "${productName}" успешно добавлен!`, 'success');
+        }
+
+        /**
+         * Deletes an item from the advanced calculator based on its ID.
+         * @param {number} id - The unique ID of the item to delete.
+         */
+        function deleteAdvancedItem(id) {
+            const itemName = advancedItems.find(item => item.id === id)?.name || 'товар';
+            advancedItems = advancedItems.filter(item => item.id !== id); // Filter out the item by ID
+            renderAdvancedItems(); // Update table display
+            calculateTotalAdvancedProfit(); // Recalculate total profit
+            alertUser(`Товар "${itemName}" удален.`);
+        }
+
+        /**
+         * Renders all items in the `advancedItems` array into the profit table.
+         */
+        function renderAdvancedItems() {
+            const tableBody = document.getElementById('profitTableBody');
+            tableBody.innerHTML = ''; // Clear table before rendering
+
+            if (advancedItems.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="py-10 text-center text-gray-600 italic">
+                            Список товаров пуст. Добавьте товар выше, чтобы начать элитный расчет прибыли!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            advancedItems.forEach(item => {
+                const row = document.createElement('tr');
+                const profitColorClass = item.netProfit >= 0 ? 'text-green-400' : 'text-red-400';
+                row.innerHTML = `
+                    <td data-label="Название" class="font-semibold">${item.name}</td>
+                    <td data-label="Покупка (₽)">${item.purchase.toFixed(2)} ₽</td>
+                    <td data-label="Продажа (₽)">${item.selling.toFixed(2)} ₽</td>
+                    <td data-label="Кол-во">${item.quantity}</td>
+                    <td data-label="Расходы (₽)">${item.totalExpenses.toFixed(2)} ₽</td>
+                    <td data-label="Чистая прибыль (₽)" class="font-extrabold ${profitColorClass}">${item.netProfit.toFixed(2)} ₽</td>
+                    <td>
+                        <button onclick="deleteAdvancedItem(${item.id})" class="btn-delete">
+                            Удалить
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        /**
+         * Calculates and displays the total net profit from all items in the advanced calculator.
+         */
+        function calculateTotalAdvancedProfit() {
+            const total = advancedItems.reduce((sum, item) => sum + item.netProfit, 0);
+            const totalProfitElement = document.getElementById('totalProfit');
+            totalProfitElement.textContent = `${total.toFixed(2)} ₽`;
+            totalProfitElement.classList.remove('text-green-300', 'text-red-400'); // Remove previous color
+            if (total >= 0) {
+                totalProfitElement.classList.add('text-green-300');
+            } else {
+                totalProfitElement.classList.add('text-red-400');
+            }
+        }
+
+
+        // Custom Alert/Toast Function
+        /**
+         * Displays a custom alert/toast message.
+         * @param {string} message - The message to display.
+         * @param {'info'|'success'|'error'} type - The type of alert (influences icon and subtle color).
+         */
+        function alertUser(message, type = 'info') {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                clearTimeout(existingAlert.dataset.timeoutId);
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = 'fixed top-8 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-2xl z-50 transition-all duration-600 transform custom-alert flex items-center justify-between';
+            
+            let iconSvg = '';
+            if (type === 'success') {
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-green-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>';
+            } else if (type === 'error') {
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-red-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>';
+            } else { // info
+                iconSvg = '<svg class="w-6 h-6 mr-3 text-blue-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>';
+            }
+
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    ${iconSvg}
+                    <p class="text-lg font-medium text-white">${message}</p>
+                </div>
+                <button class="ml-4 text-white text-3xl font-bold p-1 leading-none hover:text-gray-400 transition-colors" onclick="document.getElementById('customAlert').remove()">
+                    &times;
+                </button>
+            `;
+            document.body.appendChild(alertDiv);
+
+            const timeoutId = setTimeout(() => {
+                alertDiv.remove();
+            }, 5000); // Remove after 5 seconds
+            alertDiv.dataset.timeoutId = timeoutId;
+        }
+
+        // Global Trend Analyzer Logic
+        const analyzeTrendsBtn = document.getElementById('analyzeTrendsBtn');
+        const analyzeBtnText = document.getElementById('analyzeBtnText');
+        const analyzeBtnSpinner = document.getElementById('analyzeBtnSpinner');
+        const trendOutput = document.getElementById('trendOutput');
+        const trendContent = document.getElementById('trendContent');
+        const trendCategoryInput = document.getElementById('trendCategory');
+
+        analyzeTrendsBtn.addEventListener('click', async () => {
+            const category = trendCategoryInput.value.trim();
+            if (!category) {
+                alertUser("Пожалуйста, введите категорию для анализа трендов.", 'error');
+                return;
+            }
+
+            analyzeBtnText.textContent = 'АНАЛИЗИРУЕМ...';
+            analyzeBtnSpinner.classList.remove('hidden');
+            analyzeTrendsBtn.disabled = true;
+            analyzeTrendsBtn.classList.add('animate-pulse-strong');
+
+            try {
+                let chatHistory = [];
+                const prompt = `Based on the broad category '${category}', identify 3 current or emerging high-potential sub-niches/trending product categories for high-profit reselling. For each, provide a brief justification for its potential and 2-3 specific product examples within that sub-niche. Focus on opportunities with higher margins and unique sourcing potential. Structure the response as a JSON array of objects, with keys 'subNiche' (string), 'justification' (string), and 'examples' (array of strings).`;
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "subNiche": { "type": "STRING" },
+                                    "justification": { "type": "STRING" },
+                                    "examples": {
+                                        "type": "ARRAY",
+                                        "items": { "type": "STRING" }
+                                    }
+                                },
+                                "propertyOrdering": ["subNiche", "justification", "examples"]
+                            }
+                        }
+                    }
+                };
+                const apiKey = "AIzaSyCESsXjC52VYBP0bBqFxBIpW5_ulB3LwEQ"; // Canvas will provide this at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log("API Response for Trend Analyzer:", result); // Debugging
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+
+                    const jsonString = result.candidates[0].content.parts[0].text;
+                    console.log("Parsed JSON string (Trend Analyzer):", jsonString); // Debugging
+
+                    try {
+                        const parsedJson = JSON.parse(jsonString);
+                        console.log("Parsed JSON object (Trend Analyzer):", parsedJson); // Debugging
+
+                        trendContent.innerHTML = ''; // Clear previous ideas
+                        if (Array.isArray(parsedJson) && parsedJson.length > 0) {
+                            parsedJson.forEach(idea => {
+                                const ideaDiv = document.createElement('div');
+                                ideaDiv.className = 'mb-4 p-4 bg-gray-800 rounded-xl shadow-md'; /* Added margin and padding */
+                                ideaDiv.innerHTML = `
+                                    <h4 class="font-bold text-yellow-300 text-xl md:text-2xl lg:text-3xl mb-2 md:mb-3">${idea.subNiche}</h4>
+                                    <p class="text-gray-300 text-base md:text-lg mb-2 md:mb-3">${idea.justification}</p>
+                                    <p class="font-semibold text-gray-400 mb-1 md:mb-2">Примеры товаров:</p>
+                                    <ul class="list-disc list-inside ml-4 md:ml-6 text-base md:text-lg text-gray-200">
+                                        ${idea.examples.map(example => `<li>${example}</li>`).join('')}
+                                    </ul>
+                                `;
+                                trendContent.appendChild(ideaDiv);
+                            });
+                            trendOutput.classList.remove('hidden');
+                            trendOutput.classList.add('is-visible'); // Trigger animation
+                            alertUser("Глобальные тренды успешно сгенерированы!", 'success');
+                        } else {
+                            trendContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Не удалось сгенерировать тренды в ожидаемом формате. Попробуйте еще раз.</p>';
+                            trendOutput.classList.remove('hidden');
+                            trendOutput.classList.add('is-visible');
+                            alertUser("Не удалось сгенерировать тренды. Попробуйте еще раз.", 'error');
+                        }
+
+                    } catch (parseError) {
+                        console.error("JSON parsing error (Trend Analyzer):", parseError);
+                        trendContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Ошибка при обработке полученных данных. Попробуйте еще раз.</p>';
+                        trendOutput.classList.remove('hidden');
+                        trendOutput.classList.add('is-visible');
+                        alertUser("Ошибка обработки данных. Пожалуйста, попробуйте еще раз.", 'error');
+                    }
+
+                } else {
+                    console.error("Unexpected API response structure (Trend Analyzer):", result);
+                    trendContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Не удалось получить тренды. Структура ответа ИИ не соответствует ожидаемой.</p>';
+                    trendOutput.classList.remove('hidden');
+                    trendOutput.classList.add('is-visible');
+                    alertUser("Не удалось получить тренды. Пожалуйста, попробуйте еще раз.", 'error');
+                }
+
+            } catch (error) {
+                console.error("Error generating trends:", error);
+                trendContent.innerHTML = '<p class="text-red-400 text-base md:text-lg">Произошла ошибка при генерации трендов. Проверьте ваше соединение или попробуйте позже.</p>';
+                trendOutput.classList.remove('hidden');
+                trendOutput.classList.add('is-visible');
+                alertUser("Ошибка генерации трендов. Пожалуйста, попробуйте позже.", 'error');
+            } finally {
+                analyzeBtnText.textContent = 'АНАЛИЗИРОВАТЬ ТРЕНДЫ';
+                analyzeBtnSpinner.classList.add('hidden');
+                analyzeTrendsBtn.disabled = false;
+                analyzeTrendsBtn.classList.remove('animate-pulse-strong');
+            }
+        });
+
+
+        // Initial setup on window load
+        window.onload = function() {
+            // Observe sections for scroll animations
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Initialize profit calculator
+            renderAdvancedItems();
+            calculateTotalAdvancedProfit();
+        };
+    </script>
+</body>
+</html>

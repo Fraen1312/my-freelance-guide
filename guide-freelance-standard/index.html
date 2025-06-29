@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайд по быстрому заработку #1 - Расширенная версия</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение Google Fonts: Inter и Montserrat для заголовков -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%); /* Плавный градиентный фон */
+            color: #2d3748; /* Темно-серый текст */
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Animated Section on Scroll */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* Более закругленные углы */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Мягкая тень */
+            padding: 1.5rem; /* Adjusted for mobile */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .card {
+                padding: 2.5rem;
+            }
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Легкий подъем при наведении */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Input Field Styles */
+        input[type="text"], input[type="number"] {
+            border-radius: 0.75rem; /* Более закругленные */
+            padding: 0.75rem 1rem; /* Adjusted for mobile */
+            border: 1px solid #cbd5e0; /* Мягче граница */
+            background-color: #f8fafc;
+            color: #4a5568;
+            transition: all 0.3s ease-in-out;
+            font-size: 0.9rem; /* Adjusted for mobile */
+            width: 100%; /* Ensure full width */
+        }
+        @media (min-width: 768px) {
+            input[type="text"], input[type="number"] {
+                padding: 0.85rem 1.25rem;
+                font-size: 1rem;
+            }
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #4299e1; /* Голубой фокус */
+            box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.25); /* Более выраженная тень фокуса */
+            background-color: #ffffff;
+        }
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem; /* Adjusted for mobile */
+            border-radius: 0.75rem;
+            font-weight: 700;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.025em;
+            width: 100%; /* Full width by default on mobile */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            button {
+                padding: 0.9rem 2rem;
+                width: auto; /* Auto width on larger screens */
+            }
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #4299e1 0%, #63b3ed 100%); /* Голубой градиент */
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(66, 153, 225, 0.3);
+            text-transform: uppercase;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #3182ce 0%, #4299e1 100%);
+            box-shadow: 0 10px 25px rgba(49, 130, 206, 0.4);
+            transform: translateY(-2px) scale(1.02); /* Анимация при наведении */
+        }
+        .btn-delete {
+            background-color: #ef4444; /* Красный */
+            color: #ffffff;
+            padding: 0.5rem 1rem; /* Adjusted for mobile */
+            font-size: 0.8rem; /* Adjusted for mobile */
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+        }
+        @media (min-width: 768px) {
+            .btn-delete {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.875rem;
+            }
+        }
+        .btn-delete:hover {
+            background-color: #dc2626;
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3);
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        .btn-telegram {
+            background: linear-gradient(45deg, #0088cc 0%, #006699 100%); /* Telegram gradient */
+            color: #ffffff;
+            box-shadow: 0 12px 30px rgba(0, 136, 204, 0.3);
+            padding: 1rem 2rem; /* Adjusted for mobile */
+            font-size: 1.2rem; /* Adjusted for mobile */
+        }
+        @media (min-width: 768px) {
+            .btn-telegram {
+                padding: 1.2rem 2.5rem;
+                font-size: 1.5rem;
+            }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite;
+        }
+        @keyframes bounce-slow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+
+        /* Profit Table Styles */
+        .profit-table th, .profit-table td {
+            padding: 0.8rem 1rem; /* Adjusted for mobile */
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.85rem; /* Adjusted for mobile */
+        }
+        @media (min-width: 768px) {
+            .profit-table th, .profit-table td {
+                padding: 1rem 1.25rem;
+                font-size: 0.95rem;
+            }
+        }
+        .profit-table th {
+            background-color: #edf2f7;
+            font-weight: 700;
+            color: #4a5568;
+        }
+        .profit-table tr:hover {
+            background-color: #f7fafc;
+        }
+        /* Mobile Table Adaptation */
+        @media (max-width: 767px) { /* Small screens */
+            .profit-table thead {
+                display: none;
+            }
+            .profit-table, .profit-table tbody, .profit-table tr, .profit-table td {
+                display: block;
+                width: 100%;
+            }
+            .profit-table tr {
+                margin-bottom: 0.75rem; /* Adjusted margin */
+                border: 1px solid #e2e8f0;
+                border-radius: 0.75rem;
+                overflow: hidden;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            }
+            .profit-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            .profit-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 1rem; /* Adjusted padding */
+                width: calc(50% - 2rem);
+                text-align: left;
+                font-weight: 600;
+                color: #718096;
+            }
+        }
+
+        /* Progress Circle Styles */
+        .progress-circle {
+            position: relative;
+            width: 100px; /* Smaller for mobile */
+            height: 100px;
+            border-radius: 50%;
+            background: conic-gradient(#48bb78 0%, #38a169 var(--progress), #e2e8f0 var(--progress), #e2e8f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 768px) {
+            .progress-circle {
+                width: 140px;
+                height: 140px;
+            }
+        }
+        .progress-circle::after {
+            content: '';
+            position: absolute;
+            width: 80px; /* Adjusted */
+            height: 80px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        @media (min-width: 768px) {
+            .progress-circle::after {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            font-size: 1.6rem; /* Adjusted */
+            font-weight: 800;
+            color: #38a169;
+        }
+        @media (min-width: 768px) {
+            .progress-circle span {
+                font-size: 2rem;
+            }
+        }
+
+        /* Custom Alert/Toast styles */
+        .custom-alert {
+            animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+            padding: 0.6rem 1rem; /* Adjusted for mobile */
+            min-width: 220px; /* Minimum width */
+            max-width: 90%; /* Max width relative to viewport */
+        }
+        @media (min-width: 768px) {
+            .custom-alert {
+                padding: 0.8rem 1.2rem;
+                min-width: 250px;
+                max-width: 350px;
+            }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-50px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl md:rounded-3xl overflow-hidden my-6 md:my-8 p-6 md:p-10">
+
+        <!-- Header -->
+        <header class="text-center mb-10 md:mb-16 animated-section">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                Ваш Прибыльный Старт <br><span class="text-blue-600 text-3xl md:text-4xl">Гайд #1</span>
+            </h1>
+            <p class="mt-4 md:mt-6 text-xl md:text-2xl text-gray-700 font-medium">
+                Откройте мир быстрого и доступного заработка!
+            </p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="mb-10 md:mb-16 animated-section">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-indigo-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+                    Начните зарабатывать сегодня!
+                </h2>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3 md:mb-4">
+                    Этот эксклюзивный гайд разработан для каждого, кто стремится к финансовой независимости без сложных инвестиций и длительного обучения. Неважно, сколько вам лет и какой у вас опыт – с этим руководством вы сможете начать получать реальный доход уже сейчас!
+                </p>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                    Мы раскроем секреты проверенного временем метода, который принесет вам ощутимую прибыль: <strong>грамотная перепродажа товаров.</strong> Это интуитивно понятно, эффективно и доступно каждому!
+                </p>
+            </div>
+        </section>
+
+        <!-- Суть метода -->
+        <section class="mb-10 md:mb-16 animated-section">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-green-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+                    Перепродажа: Простота и Выгода
+                </h2>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6 md:mb-8">
+                    Суть проста: вы покупаете товар по выгодной цене и продаете его дороже. Ваша прибыль – это разница! Нет необходимости в производстве, сложных маркетинговых стратегиях или огромных вложениях. Главное – находить, покупать с умом и эффективно продавать.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 md:mt-8">
+                    <div class="bg-blue-50 p-6 rounded-xl shadow-inner text-center transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-5xl mb-3">💰</p>
+                        <h3 class="text-xl font-bold text-blue-800 mb-2">Минимальные Вложения</h3>
+                        <p class="text-gray-700 text-sm">Начните с того, что у вас уже есть, или с символических сумм.</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-xl shadow-inner text-center transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-5xl mb-3">⚡</p>
+                        <h3 class="text-xl font-bold text-green-800 mb-2">Моментальный Результат</h3>
+                        <p class="text-gray-700 text-sm">Ваша прибыль может быть в кармане уже в течение 24 часов!</p>
+                    </div>
+                    <div class="bg-purple-50 p-6 rounded-xl shadow-inner text-center transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-5xl mb-3">🎓</p>
+                        <h3 class="text-xl font-bold text-purple-800 mb-2">Легкость Освоения</h3>
+                        <p class="text-gray-700 text-sm">Никаких сложных навыков – только желание и внимательность.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Гайд по шагам -->
+        <section class="mb-10 md:mb-16 animated-section">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-orange-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+                Ваш Пошаговый План Действий!
+                </h2>
+                <div class="space-y-8">
+                    <!-- Шаг 1 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-6 rounded-xl shadow-inner border-l-4 md:border-l-8 border-blue-500">
+                        <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl md:text-3xl font-bold mr-4 md:mr-6 mb-3 md:mb-0">
+                            1
+                        </div>
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3">Шаг 1: Мастер поиска выгодных товаров</h3>
+                            <p class="text-base md:text-lg text-gray-700 mb-2">
+                                <strong>Где искать настоящие сокровища:</strong>
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 md:space-y-2 pl-3 md:pl-4">
+                                <li><strong>Ревизия своих вещей:</strong> Начните с домашнего "склада". Старые гаджеты, брендовая одежда, книги или игры, которые пылятся без дела – это ваши первые "инвестиции".</li>
+                                <li><strong>"Охота" на барахолках и в секонд-хендах:</strong> Здесь можно найти уникальные или брендовые вещи за сущие копейки. Ищите то, что можно легко очистить, отремонтировать или что выглядит значительно дороже своей цены.</li>
+                                <li><strong>Онлайн-платформы:</strong> Ваш основной инструмент! Постоянно мониторьте Авито, Юлу, OLX (или местные аналоги). Ищите объявления с пометкой "срочно", "переезд", "дешево" – это верный признак, что продавец готов уступить.</li>
+                                <li><strong>Распродажи и ликвидации:</strong> Следите за акциями в магазинах. Иногда можно купить абсолютно новый товар с огромной скидкой и тут же перепродать его по рыночной цене.</li>
+                            </ul>
+                            <p class="text-base md:text-lg text-gray-700 mt-3 md:mt-4">
+                                <strong>Что искать:</strong> Особое внимание уделяйте популярным брендам одежды и обуви (кроссовки – хит!), функциональной электронике (даже с мелкими дефектами, которые легко устранить), винтажным предметам, редким книгам или коллекционным игрушкам.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 2 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-6 rounded-xl shadow-inner border-l-4 md:border-l-8 border-green-500">
+                        <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-full bg-green-600 text-white flex items-center justify-center text-2xl md:text-3xl font-bold mr-4 md:mr-6 mb-3 md:mb-0">
+                            2
+                        </div>
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3">Шаг 2: Устанавливаем цену: Мастер-класс по оценке</h3>
+                            <p class="text-base md:text-lg text-gray-700 mb-2">
+                                Прежде чем совершать покупку, проведите "разведку рынка". Ваша цель – купить заметно дешевле, чем средняя цена продажи аналогичного товара.
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 md:space-y-2 pl-3 md:pl-4">
+                                <li><strong>Анализ конкурентов:</strong> Введите название товара на платформах продаж и изучите 10-20 похожих объявлений. Какова средняя цена? За сколько продают в идеальном/среднем/плохом состоянии?</li>
+                                <li><strong>Учитываем детали:</strong> Любые изъяны (царапины, потертости, отсутствие коробки) снижают цену. Идеальное состояние, наличие всех комплектующих или даже гарантии – повод просить больше.</li>
+                                <li><strong>Искусство торга:</strong> Не стесняйтесь предлагать свою цену продавцу! На онлайн-платформах это обычная практика. Даже небольшая скидка на покупке – это ваша дополнительная прибыль. "А что, если за 800?" – и вот вы уже заработали 200 рублей еще до продажи!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 3 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-6 rounded-xl shadow-inner border-l-4 md:border-l-8 border-purple-500">
+                        <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-full bg-purple-600 text-white flex items-center justify-center text-2xl md:text-3xl font-bold mr-4 md:mr-6 mb-3 md:mb-0">
+                            3
+                        </div>
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3">Шаг 3: Продаем и получаем прибыль!</h3>
+                            <p class="text-base md:text-lg text-gray-700 mb-2">
+                                <strong>Ваши торговые площадки:</strong>
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 md:space-y-2 pl-3 md:pl-4">
+                                <li><strong>Онлайн-гиганты:</strong> Те же Авито, Юла, OLX – создавайте привлекательные объявления.</li>
+                                <li><strong>Сила социальных сетей:</strong> Группы по продаже, свой личный профиль, сторис. Используйте хештеги, чтобы вас нашли.</li>
+                                <li><strong>Круг знакомых:</strong> Расскажите друзьям и родным – часто они ищут что-то подобное!</li>
+                            </ul>
+                            <p class="text-base md:text-lg text-gray-700 mt-3 md:mt-4">
+                                <strong>Как создать объявление, которое продает:</strong>
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 md:space-y-2 pl-3 md:pl-4">
+                                <li><strong>Фотографии решают:</strong> Сделайте 5-10 четких, ярких фото при хорошем дневном свете. Покажите товар со всех сторон, крупные планы деталей, отсутствие дефектов. Примеры использования (если это одежда/аксессуары) увеличивают интерес!</li>
+                                <li><strong>Продающее описание:</strong> Укажите бренд, модель, состояние (новое, б/у, идеальное). Опишите преимущества товара, его особенности. Будьте честны насчет любых нюансов, чтобы избежать недовольства покупателей.</li>
+                                <li><strong>Призыв к действию:</strong> "Пишите в ЛС", "Звоните сейчас", "Забирайте сегодня и получите скидку!".</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Инфографика -->
+        <section class="mb-10 md:mb-16 animated-section">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-cyan-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+                    Визуальный Цикл Успешной Перепродажи
+                </h2>
+                <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10 mt-6 md:mt-8">
+                    <div class="text-center transform hover:scale-110 transition-transform duration-300">
+                        <p class="text-5xl mb-2">🔍</p>
+                        <p class="font-bold text-lg text-gray-800">ПОИСК</p>
+                    </div>
+                    <svg class="hidden md:block w-16 h-8 text-gray-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    <div class="text-center transform hover:scale-110 transition-transform duration-300">
+                        <p class="text-5xl mb-2">🛒</p>
+                        <p class="font-bold text-lg text-gray-800">ПОКУПКА</p>
+                    </div>
+                    <svg class="hidden md:block w-16 h-8 text-gray-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    <div class="text-center transform hover:scale-110 transition-transform duration-300">
+                        <p class="text-5xl mb-2">✨</p>
+                        <p class="font-bold text-lg text-gray-800">ПОДГОТОВКА</p>
+                    </div>
+                    <svg class="hidden md:block w-16 h-8 text-gray-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    <div class="text-center transform hover:scale-110 transition-transform duration-300">
+                        <p class="text-5xl mb-2">🚀</p>
+                        <p class="font-bold text-lg text-gray-800">ПРОДАЖА</p>
+                    </div>
+                    <svg class="hidden md:block w-16 h-8 text-gray-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    <div class="text-center transform hover:scale-110 transition-transform duration-300">
+                        <p class="text-5xl mb-2">📈</p>
+                        <p class="font-bold text-lg text-gray-800">ПРИБЫЛЬ!</p>
+                    </div>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <p class="text-xl font-bold text-gray-800 mb-4">
+                        Потенциал роста вашей прибыли:
+                    </p>
+                    <div class="flex justify-center items-end h-40 max-w-sm mx-auto bg-gray-100 rounded-xl p-4 shadow-inner">
+                        <div class="w-1/4 bg-blue-500 rounded-t-lg mx-1 flex items-end justify-center transform hover:scale-105 transition-transform duration-300" style="height: 35%;">
+                            <span class="text-xs text-white mb-1 font-semibold">Начало</span>
+                        </div>
+                        <div class="w-1/4 bg-green-500 rounded-t-lg mx-1 flex items-end justify-center transform hover:scale-105 transition-transform duration-300" style="height: 65%;">
+                            <span class="text-xs text-white mb-1 font-semibold">Средний</span>
+                        </div>
+                        <div class="w-1/4 bg-purple-500 rounded-t-lg mx-1 flex items-end justify-center transform hover:scale-105 transition-transform duration-300" style="height: 95%;">
+                            <span class="text-xs text-white mb-1 font-semibold">Эксперт</span>
+                        </div>
+                        <div class="w-1/4 bg-orange-500 rounded-t-lg mx-1 flex items-end justify-center transform hover:scale-105 transition-transform duration-300" style="height: 120%; transform: scaleY(0.85);">
+                            <span class="text-xs text-white mb-1 font-semibold">Мастер</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-3">
+                        Каждая успешная сделка приближает вас к новым финансовым горизонтам!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Быстрый старт: Чек-лист -->
+        <section class="mb-10 md:mb-16 animated-section">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+                    Чек-лист быстрого старта
+                </h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md focus:ring-blue-500 transition duration-150 ease-in-out">
+                        <span class="ml-3 text-base text-gray-800 font-medium">Найти 3 ненужные вещи дома для перепродажи</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md focus:ring-blue-500 transition duration-150 ease-in-out">
+                        <span class="ml-3 text-base text-gray-800 font-medium">Зарегистрироваться на 2 онлайн-платформах для продаж (Авито, Юла и т.д.)</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md focus:ring-blue-500 transition duration-150 ease-in-out">
+                        <span class="ml-3 text-base text-gray-800 font-medium">Сделать качественные фото и написать описание для первого товара</span>
+                    </label>
+                    <label class="flex items-center p-3 bg-gray-50 rounded-lg shadow-sm cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md focus:ring-blue-500 transition duration-150 ease-in-out">
+                        <span class="ml-3 text-base text-gray-800 font-medium">Разместить первое объявление!</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Калькулятор прибыли -->
+        <section class="mb-10 md:mb-16 animated-section" id="profit-calculator">
+            <div class="card">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-teal-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+                    Ваш Персональный Калькулятор Прибыли!
+                </h2>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6 md:mb-8">
+                    Следите за каждой копейкой и планируйте свой доход заранее. Этот инструмент поможет вам точно рассчитать потенциальную прибыль от каждой сделки.
+                </p>
+                <div class="bg-blue-50 p-6 rounded-xl shadow-inner mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="productName" class="block text-gray-700 text-sm font-semibold mb-2">Название товара:</label>
+                            <input type="text" id="productName" placeholder="Например: Кроссовки Nike Air" class="w-full text-sm">
+                        </div>
+                        <div>
+                            <label for="purchasePrice" class="block text-gray-700 text-sm font-semibold mb-2">Цена покупки (₽):</label>
+                            <input type="number" id="purchasePrice" min="0" value="0" class="w-full text-sm">
+                        </div>
+                        <div>
+                            <label for="sellingPrice" class="block text-gray-700 text-sm font-semibold mb-2">Цена продажи (₽):</label>
+                            <input type="number" id="sellingPrice" min="0" value="0" class="w-full text-sm">
+                        </div>
+                        <div>
+                            <label for="quantity" class="block text-gray-700 text-sm font-semibold mb-2">Количество:</label>
+                            <input type="number" id="quantity" min="1" value="1" class="w-full text-sm">
+                        </div>
+                    </div>
+                    <button onclick="addItem()" class="btn-primary w-full mt-4 transform active:scale-95">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Добавить товар в расчет
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto rounded-lg shadow-lg">
+                    <table class="min-w-full bg-white profit-table">
+                        <thead>
+                            <tr>
+                                <th class="py-3 px-4 uppercase font-extrabold text-xs text-gray-600 tracking-wider">Название товара</th>
+                                <th class="py-3 px-4 uppercase font-extrabold text-xs text-gray-600 tracking-wider">Покупка (₽)</th>
+                                <th class="py-3 px-4 uppercase font-extrabold text-xs text-gray-600 tracking-wider">Продажа (₽)</th>
+                                <th class="py-3 px-4 uppercase font-extrabold text-xs text-gray-600 tracking-wider">Кол-во</th>
+                                <th class="py-3 px-4 uppercase font-extrabold text-xs text-gray-600 tracking-wider">Прибыль с ед. (₽)</th>
+                                <th class="py-3 px-4 uppercase font-extrabold text-xs text-gray-600 tracking-wider">Общая прибыль (₽)</th>
+                                <th class="py-3 px-4 uppercase font-extrabold text-xs text-gray-600 tracking-wider">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="profitTableBody" class="text-gray-800">
+                            <!-- Товары будут добавляться сюда -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-8 p-6 bg-green-100 rounded-xl shadow-xl text-center animated-section">
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-green-800 mb-4">
+                        Ваша Общая Потенциальная Прибыль:
+                    </h3>
+                    <p id="totalProfit" class="text-5xl md:text-6xl font-extrabold text-green-700 leading-none animate-pulse">
+                        0.00 ₽
+                    </p>
+                    <p class="text-gray-600 text-base mt-3">
+                        Каждая добавленная позиция увеличивает ваш потенциал дохода!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Мотивирующая речь -->
+        <section class="mb-10 md:mb-16 animated-section">
+            <div class="card bg-gradient-to-r from-yellow-50 to-orange-50">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 md:mb-8 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-yellow-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+                    Ваш Успех в Ваших Руках!
+                </h2>
+                <p class="text-base md:text-lg text-gray-800 leading-relaxed mb-4 md:mb-6">
+                    Помните, что путь к успеху начинается с первого, самого смелого шага. Не бойтесь экспериментировать, искать новые возможности и учиться на каждом опыте. Этот гайд – ваш надежный компас. Ваша целеустремленность, творческий подход и вера в себя станут главными ключами к достижению любых финансовых целей – от долгожданной покупки до создания серьезного капитала. Начните сегодня, и вы удивитесь, на что способны!
+                </p>
+                <div class="text-center mt-6 md:mt-10">
+                    <div class="progress-circle mx-auto" style="--progress: 90%;">
+                        <span>90%</span>
+                    </div>
+                    <p class="mt-4 text-gray-700 text-lg font-bold">
+                        90% вашего успеха – это ваша решимость действовать!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Реклама моего телеграм-канала -->
+        <footer class="text-center pt-8 border-t-2 border-gray-200 mt-10 md:mt-16 animated-section">
+            <p class="text-xl md:text-2xl font-bold text-gray-800 mb-4">
+                Эксклюзивные знания для вас!
+            </p>
+            <p class="text-base md:text-lg text-gray-700 mb-6">
+                Хотите еще больше ценных советов, актуальных схем заработка и поддержки от единомышленников?
+                Присоединяйтесь к моему Telegram-каналу прямо сейчас!
+            </p>
+            <a href="https://t.me/dropshop234" target="_blank" class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-lg md:text-xl px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 animate-bounce-slow">
+                <svg class="w-6 h-6 mr-3 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.999 12c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7 7-3.13 7-7zm-7.25 4.71l-5.69-2.22c-.41-.16-.41-.57 0-.73l12.87-5.02c.3-.12.55.15.35.43L13 14.88c-.2.27-.37.49-.64.55l-2.61.52c-.52.1-.53-.13 0-.25l2.64-1.92c.2-.14.3-.39.22-.64l-.9-2.8c-.1-.3-.42-.36-.61-.15l-1.8 1.54z"></path></svg>
+                Перейти в Telegram-канал
+            </a>
+            <p class="mt-6 text-xs md:text-sm text-gray-500">
+                Все права защищены. <span class="font-extrabold text-gray-600">© [Jesus/DropShop] [2025 год]</span>.
+                Этот гайд является моей интеллектуальной собственностью.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Анимированное появление секций при прокрутке
+        const animatedSections = document.querySelectorAll('.animated-section');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Остановить наблюдение после появления
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1 // Секция появится, когда 10% её будет видно
+        });
+
+        animatedSections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Плавная прокрутка для якорей (если используются)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        let items = []; // Массив для хранения данных о товарах
+
+        // Функция для добавления товара в калькулятор
+        function addItem() {
+            const productName = document.getElementById('productName').value;
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value);
+            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+
+            // Проверка введенных значений
+            if (!productName || productName.trim() === '') {
+                alertUser("Пожалуйста, введите название товара.", 'error');
+                return;
+            }
+            if (isNaN(purchasePrice) || purchasePrice < 0) {
+                alertUser("Пожалуйста, введите корректную цену покупки (число не менее 0).", 'error');
+                return;
+            }
+            if (isNaN(sellingPrice) || sellingPrice < 0) {
+                alertUser("Пожалуйста, введите корректную цену продажи (число не менее 0).", 'error');
+                return;
+            }
+            if (isNaN(quantity) || quantity < 1) {
+                alertUser("Пожалуйста, введите корректное количество (число не менее 1).", 'error');
+                return;
+            }
+            if (sellingPrice < purchasePrice) {
+                 alertUser("Цена продажи не может быть меньше цены покупки. Установите цену продажи выше цены покупки для получения прибыли.", 'error');
+                 return;
+            }
+
+            const itemProfitPerUnit = sellingPrice - purchasePrice;
+            const itemTotalProfit = itemProfitPerUnit * quantity;
+
+            const newItem = {
+                id: Date.now(), // Уникальный ID для каждого товара
+                name: productName,
+                purchase: purchasePrice,
+                selling: sellingPrice,
+                quantity: quantity,
+                profitPerUnit: itemProfitPerUnit,
+                totalProfit: itemTotalProfit
+            };
+
+            items.push(newItem); // Добавляем новый товар в массив
+            renderItems(); // Обновляем отображение таблицы
+            calculateTotalProfit(); // Пересчитываем общую прибыль
+
+            // Очищаем поля ввода
+            document.getElementById('productName').value = '';
+            document.getElementById('purchasePrice').value = '0';
+            document.getElementById('sellingPrice').value = '0';
+            document.getElementById('quantity').value = '1';
+
+            alertUser(`Товар "${productName}" успешно добавлен!`, 'success');
+        }
+
+        // Функция для удаления товара из калькулятора
+        function deleteItem(id) {
+            const itemName = items.find(item => item.id === id)?.name || 'товар';
+            items = items.filter(item => item.id !== id); // Удаляем товар по ID
+            renderItems(); // Обновляем отображение таблицы
+            calculateTotalProfit(); // Пересчитываем общую прибыль
+            alertUser(`Товар "${itemName}" удален.`);
+        }
+
+        // Функция для отображения товаров в таблице
+        function renderItems() {
+            const tableBody = document.getElementById('profitTableBody');
+            tableBody.innerHTML = ''; // Очищаем таблицу перед обновлением
+
+            if (items.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="py-6 text-center text-gray-500 italic">
+                            Список товаров пуст. Добавьте первый товар выше!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td data-label="Название товара" class="font-semibold">${item.name}</td>
+                    <td data-label="Цена покупки (₽)">${item.purchase.toFixed(2)} ₽</td>
+                    <td data-label="Цена продажи (₽)">${item.selling.toFixed(2)} ₽</td>
+                    <td data-label="Количество">${item.quantity}</td>
+                    <td data-label="Прибыль с ед. (₽)" class="font-bold text-green-600">${item.profitPerUnit.toFixed(2)} ₽</td>
+                    <td data-label="Общая прибыль (₽)" class="font-extrabold text-green-700">${item.totalProfit.toFixed(2)} ₽</td>
+                    <td>
+                        <button onclick="deleteItem(${item.id})" class="btn-delete transform active:scale-95">
+                            Удалить
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Функция для расчета и отображения общей прибыли
+        function calculateTotalProfit() {
+            const total = items.reduce((sum, item) => sum + item.totalProfit, 0);
+            document.getElementById('totalProfit').textContent = `${total.toFixed(2)} ₽`;
+        }
+
+        // Пользовательское сообщение (Toast/Alert)
+        function alertUser(message, type = 'info') {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                clearTimeout(existingAlert.dataset.timeoutId);
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = 'fixed top-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-xl z-50 transition-all duration-300 transform custom-alert';
+
+            let bgColor = 'bg-blue-500';
+            let iconSvg = '';
+            if (type === 'success') {
+                bgColor = 'bg-green-500';
+                iconSvg = '<svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>';
+            } else if (type === 'error') {
+                bgColor = 'bg-red-500';
+                iconSvg = '<svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            } else {
+                iconSvg = '<svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>'; /* Info icon (circle with 'i') */
+            }
+
+            alertDiv.classList.add(bgColor, 'text-white');
+            alertDiv.innerHTML = `
+                <p class="flex items-center text-lg">
+                    ${iconSvg}
+                    ${message}
+                </p>
+                <button class="absolute top-1 right-2 text-white text-2xl font-bold p-1 leading-none" onclick="document.getElementById('customAlert').remove()">
+                    &times;
+                </button>
+            `;
+            document.body.appendChild(alertDiv);
+
+            const timeoutId = setTimeout(() => {
+                alertDiv.remove();
+            }, 3500); // Remove after 3.5 seconds (includes fadeOut animation)
+            alertDiv.dataset.timeoutId = timeoutId;
+        }
+
+
+        // Инициализация при загрузке страницы
+        window.onload = function() {
+            renderItems(); // Отображаем пустую таблицу при загрузке
+            calculateTotalProfit(); // Обнуляем общую прибыль
+
+            // Запускаем IntersectionObserver после загрузки DOM
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        };
+    </script>
+</body>
+</html>

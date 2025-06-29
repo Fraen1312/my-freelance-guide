@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайд: Основы Создания и Продажи Цифровых Продуктов (Стандарт)</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение Google Fonts: Inter (основной) и Montserrat (для заголовков) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2f7 100%); /* Светлый, свежий градиент */
+            color: #1a202c; /* Темный текст для хорошей читаемости */
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Animated Section on Scroll */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* Более закругленные углы */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Мягкая тень */
+            padding: 1.5rem; /* Adjusted for mobile */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e2e8f0; /* Легкая граница */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .card {
+                padding: 2.5rem;
+            }
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Легкий подъем при наведении */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Input Field Styles */
+        input[type="text"], input[type="number"], textarea {
+            border-radius: 0.75rem; /* Закругленные */
+            padding: 0.75rem 1rem; /* Adjusted for mobile */
+            border: 1px solid #a0aec0; /* Средне-серый */
+            background-color: #edf2f7;
+            color: #2d3748;
+            transition: all 0.3s ease-in-out;
+            font-size: 0.9rem; /* Adjusted for mobile */
+            width: 100%; /* Ensure full width */
+        }
+        @media (min-width: 768px) {
+            input[type="text"], input[type="number"], textarea {
+                padding: 0.85rem 1.25rem;
+                font-size: 1rem;
+            }
+        }
+        input::placeholder {
+            color: #718096;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            outline: none;
+            border-color: #38b2ac; /* Бирюзовый фокус */
+            box-shadow: 0 0 0 4px rgba(56, 178, 172, 0.25);
+            background-color: #ffffff;
+        }
+
+        /* Button Styles */
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem; /* Adjusted for mobile */
+            border-radius: 0.75rem;
+            font-weight: 700;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            width: 100%; /* Full width by default on mobile */
+        }
+        @media (min-width: 768px) {
+            button {
+                padding: 0.9rem 2rem;
+                width: auto; /* Auto width on larger screens */
+            }
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #38b2ac 0%, #4fd1c5 100%); /* Бирюзовый градиент */
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(56, 178, 172, 0.3);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #319795 0%, #38b2ac 100%);
+            box-shadow: 0 10px 25px rgba(49, 151, 149, 0.4);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .btn-telegram {
+            background: linear-gradient(45deg, #2196f3 0%, #1976d2 100%); /* Синий градиент Telegram */
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+            padding: 1rem 2rem; /* Adjusted for mobile */
+            font-size: 1.2rem; /* Adjusted for mobile */
+        }
+        @media (min-width: 768px) {
+            .btn-telegram {
+                padding: 1.2rem 2.5rem;
+                font-size: 1.5rem;
+            }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite;
+        }
+        @keyframes bounce-slow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Progress Circle Styles */
+        .progress-circle {
+            position: relative;
+            width: 100px; /* Smaller for mobile */
+            height: 100px;
+            border-radius: 50%;
+            background: conic-gradient(#4fd1c5 0%, #38b2ac var(--progress), #e2e8f0 var(--progress), #e2e8f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 768px) {
+            .progress-circle {
+                width: 140px;
+                height: 140px;
+            }
+        }
+        .progress-circle::after {
+            content: '';
+            position: absolute;
+            width: 80px; /* Adjusted */
+            height: 80px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.05);
+        }
+        @media (min-width: 768px) {
+            .progress-circle::after {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            font-size: 1.6rem; /* Adjusted */
+            font-weight: 800;
+            color: #38b2ac;
+        }
+        @media (min-width: 768px) {
+            .progress-circle span {
+                font-size: 2rem;
+            }
+        }
+
+        /* Custom Alert/Toast Styles */
+        .custom-alert {
+            animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+            background-color: rgba(26, 32, 44, 0.9); /* Темный фон */
+            border: 1px solid rgba(56, 178, 172, 0.3); /* Бирюзовая граница */
+            color: #ffffff; /* Белый текст */
+            padding: 0.6rem 1rem; /* Adjusted for mobile */
+            min-width: 220px; /* Minimum width */
+            max-width: 90%; /* Max width relative to viewport */
+        }
+        @media (min-width: 768px) {
+            .custom-alert {
+                padding: 0.8rem 1.2rem;
+                min-width: 250px;
+                max-width: 350px;
+            }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-50px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #4fd1c5; /* Бирюзовый спиннер */
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl md:rounded-2xl overflow-hidden my-6 md:my-8 p-6 md:p-10">
+
+        <!-- Header -->
+        <header class="text-center mb-10 md:mb-14 animated-section">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-800 leading-tight">
+                Старт: <br><span class="text-teal-600 text-2xl md:text-3xl lg:text-4xl">Создание и Продажа Цифровых Продуктов</span>
+            </h1>
+            <p class="mt-4 md:mt-5 text-lg md:text-xl text-gray-600 font-medium">
+                Гайд "СТАНДАРТ" – ваш первый шаг к пассивному доходу!
+            </p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Превратите свои знания в деньги!
+                </h2>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-3 md:mb-4">
+                    Мечтаете о доходе, который не зависит от постоянного выполнения задач? Цифровые продукты – это ваш ключ! Вы создаете что-то один раз, а продаете бесконечно, получая прибыль. Этот гайд покажет, как даже с минимальными знаниями и ресурсами запустить свой первый инфопродукт.
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                    Откройте для себя мир электронных книг, чек-листов, шаблонов и мини-курсов. Это простая и понятная модель для старта в инфобизнесе.
+                </p>
+            </div>
+        </section>
+
+        <!-- Что такое цифровые продукты -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card bg-teal-50">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-teal-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Потенциал Цифровых Продуктов
+                </h2>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-6">
+                    Цифровой продукт – это информационный товар, который существует в электронном виде и может быть многократно продан. Вам не нужен склад, доставка или физическое производство.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-100 p-5 rounded-xl shadow-sm text-center">
+                        <p class="text-4xl mb-3">♾️</p>
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">Безграничный тираж</h3>
+                        <p class="text-gray-600 text-sm">Продавайте один раз созданное бесконечное число раз.</p>
+                    </div>
+                    <div class="bg-green-100 p-5 rounded-xl shadow-sm text-center">
+                        <p class="text-4xl mb-3">📈</p>
+                        <h3 class="text-lg font-semibold text-green-800 mb-2">Высокая маржинальность</h3>
+                        <p class="text-gray-600 text-sm">Затраты на создание единоразовые, прибыль – с каждой продажи.</p>
+                    </div>
+                    <div class="bg-purple-100 p-5 rounded-xl shadow-sm text-center">
+                        <p class="text-4xl mb-3">🌍</p>
+                        <h3 class="text-lg font-semibold text-purple-800 mb-2">Доступ к миру</h3>
+                        <p class="text-gray-600 text-sm">Ваш продукт доступен покупателям из любой точки мира.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Шаги к созданию -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-orange-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваш Пошаговый План
+                </h2>
+                <div class="space-y-8">
+                    <!-- Шаг 1 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-5 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl md:text-2xl font-bold mr-4 mb-2 md:mb-0">
+                            1
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Шаг 1: Выберите Нишу и Идею Продукта</h3>
+                            <p class="text-base md:text-lg text-gray-700">
+                                Сначала определите, в чем вы эксперт или что вам интересно. Затем подумайте, какую проблему это может решить для других.
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 pl-3 md:pl-4">
+                                <li>**Ваши знания:** Что вы знаете лучше других? В чем вы помогали друзьям?</li>
+                                <li>**Потребности рынка:** Изучите форумы, группы, комментарии – какие вопросы задают люди? Какие проблемы у них возникают?</li>
+                                <li>**Простые форматы:** Для первого продукта выберите что-то небольшое: электронная книга (50-100 страниц), чек-лист, шаблон, мини-сборник советов.</li>
+                            </ul>
+                            <p class="text-base md:text-lg text-gray-700 mt-3">
+                                **Используйте наш ИИ-Генератор Идей (ниже)!**
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 2 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-5 rounded-xl shadow-sm border-l-4 border-green-500">
+                        <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-600 text-white flex items-center justify-center text-xl md:text-2xl font-bold mr-4 mb-2 md:mb-0">
+                            2
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Шаг 2: Создайте Свой Продукт</h3>
+                            <p class="text-base md:text-lg text-gray-700">
+                                Не стремитесь к идеалу сразу. Начните с "достаточно хорошо".
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 pl-3 md:pl-4">
+                                <li>**Структура:** Создайте план продукта (оглавление книги, пункты чек-листа).</li>
+                                <li>**Наполнение:** Пишите, собирайте информацию, создавайте шаблоны. Фокусируйтесь на решении конкретной проблемы.
+                                    [Image of person writing on laptop]
+                                </li>
+                                <li>**Дизайн:** Используйте простые инструменты (Google Docs, Canva) для оформления. Главное – читабельность и понятность.</li>
+                                <li>**Конвертация:** Сохраните продукт в универсальном формате (PDF для текста, JPG/PNG для шаблонов).</li>
+                            </ul>
+                            <p class="text-base md:text-lg text-gray-700 mt-3">
+                                **Лайфхак:** Предложите продукт 2-3 друзьям/знакомым бесплатно за честный отзыв.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Шаг 3 -->
+                    <div class="flex flex-col md:flex-row items-start bg-gray-50 p-5 rounded-xl shadow-sm border-l-4 border-purple-500">
+                        <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-600 text-white flex items-center justify-center text-xl md:text-2xl font-bold mr-4 mb-2 md:mb-0">
+                            3
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Шаг 3: Разместите и Начните Продавать</h3>
+                            <p class="text-base md:text-lg text-gray-700">
+                                Вам не нужен свой сайт для начала. Используйте готовые платформы:
+                            </p>
+                            <ul class="list-disc list-inside text-sm md:text-base text-gray-700 space-y-1 pl-3 md:pl-4">
+                                <li>**Gumroad:** Простая платформа для продажи цифровых продуктов. Загружаете файл, устанавливаете цену, получаете ссылку.
+                                    [Image of Gumroad logo]
+                                </li>
+                                <li>**Boosty.to / Patreon (для подписки):** Если планируете продавать контент по подписке.</li>
+                                <li>**Социальные сети и Telegram:** Создайте пост с описанием продукта, ценой и ссылкой на Gumroad.</li>
+                            </ul>
+                            <p class="text-base md:text-lg text-gray-700 mt-3">
+                                **Продвижение:** Расскажите о продукте своим знакомым. Попросите их поделиться. Напишите пост в тематических группах (с разрешения администрации).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive: AI-Powered Idea Generator -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card bg-indigo-50">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Инструмент: ИИ-Генератор Идей!
+                </h2>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-6">
+                    Иногда самое сложное — это найти идею. Используйте этот ИИ-инструмент, чтобы получить свежие, релевантные идеи для вашего первого цифрового продукта.
+                </p>
+                <div class="bg-gray-100 p-5 rounded-xl shadow-inner mb-6">
+                    <label for="ideaTopic" class="block text-gray-700 text-lg font-semibold mb-3">Введите общую тему или навык (например: "копирайтинг", "SMM", "фитнес дома", "изучение английского"):</label>
+                    <textarea id="ideaTopic" rows="3" placeholder="Ваша тема или навык..." class="w-full text-base"></textarea>
+                    <button id="generateIdeaBtn" class="btn-primary w-full mt-5">
+                        <span id="ideaBtnText">СГЕНЕРИРОВАТЬ ИДЕИ</span>
+                        <div id="ideaBtnSpinner" class="hidden spinner ml-3"></div>
+                    </button>
+                </div>
+
+                <div id="ideaOutput" class="bg-gray-50 p-5 rounded-xl shadow-lg mt-8 hidden animated-section">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Ваши идеи цифровых продуктов:</h3>
+                    <div id="ideaContent" class="text-base md:text-lg text-gray-700 leading-relaxed space-y-3">
+                        <!-- Ideas will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Motivational Speech -->
+        <section class="mb-10 md:mb-14 animated-section">
+            <div class="card bg-gradient-to-r from-blue-100 to-green-100">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 mb-5 md:mb-6 flex items-center">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 mr-3 md:mr-4 text-green-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"></path></svg>
+                    Ваш Запуск Успешен!
+                </h2>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
+                    Поздравляю, вы сделали первый и самый важный шаг к созданию пассивного дохода! Мир цифровых продуктов огромен, и вы только начинаете свой путь. Действуйте, учитесь, собирайте отзывы и улучшайте свой продукт. Каждый шаг – это инвестиция в ваше будущее.
+                </p>
+                <div class="text-center mt-6 md:mt-8">
+                    <div class="progress-circle mx-auto" style="--progress: 75%;">
+                        <span>75%</span>
+                    </div>
+                    <p class="mt-4 text-gray-700 text-lg font-bold">
+                        75% вашего успеха – в первом опубликованном продукте!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Telegram Channel Promotion & Copyright -->
+        <footer class="text-center pt-8 border-t-2 border-gray-200 mt-10 md:mt-14 animated-section">
+            <p class="text-xl md:text-2xl font-bold text-gray-700 mb-4">
+                Больше идей и стратегий в Telegram!
+            </p>
+            <p class="text-base md:text-lg text-gray-600 mb-6">
+                Присоединяйтесь к моему каналу, чтобы не пропустить эксклюзивные советы и новые возможности.
+            </p>
+            <a href="https://t.me/dropshop234" target="_blank" class="inline-block btn-telegram text-white text-lg px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 animate-bounce-slow">
+                <svg class="w-6 h-6 mr-3 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.999 12c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7 7-3.13 7-7zm-7.25 4.71l-5.69-2.22c-.41-.16-.41-.57 0-.73l12.87-5.02c.3-.12.55.15.35.43L13 14.88c-.2.27-.37.49-.64.55l-2.61.52c-.52.1-.53-.13 0-.25l2.64-1.92c.2-.14.3-.39.22-.64l-.9-2.8c-.1-.3-.42-.36-.61-.15l-1.8 1.54z"></path></svg>
+                Перейти в Telegram-канал
+            </a>
+            <p class="mt-6 text-xs md:text-sm text-gray-500">
+                Все права защищены. <span class="font-bold text-gray-600">© [Jesus/DropShop] [2025 год]</span>.
+                Этот гайд является моей интеллектуальной собственностью.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const animatedSections = document.querySelectorAll('.animated-section');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+        animatedSections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Custom Alert/Toast Function
+        function alertUser(message, type = 'info') {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                clearTimeout(existingAlert.dataset.timeoutId);
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = 'fixed top-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg shadow-xl z-50 transition-all duration-300 transform custom-alert flex items-center justify-between';
+            
+            let iconSvg = '';
+            if (type === 'success') {
+                iconSvg = '<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>';
+            } else if (type === 'error') {
+                iconSvg = '<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            } else {
+                iconSvg = '<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>';
+            }
+
+            alertDiv.classList.add('bg-gray-800', 'text-white'); /* Specific styles for this alert type */
+            alertDiv.innerHTML = `
+                <p class="flex items-center text-base">
+                    ${iconSvg}
+                    ${message}
+                </p>
+                <button class="absolute top-0.5 right-1 text-white text-xl font-bold p-1 leading-none" onclick="document.getElementById('customAlert').remove()">
+                    &times;
+                </button>
+            `;
+            document.body.appendChild(alertDiv);
+
+            const timeoutId = setTimeout(() => {
+                alertDiv.remove();
+            }, 3500);
+            alertDiv.dataset.timeoutId = timeoutId;
+        }
+
+        // AI-Powered Idea Generator Logic
+        const generateIdeaBtn = document.getElementById('generateIdeaBtn');
+        const ideaBtnText = document.getElementById('ideaBtnText');
+        const ideaBtnSpinner = document.getElementById('ideaBtnSpinner');
+        const ideaOutput = document.getElementById('ideaOutput');
+        const ideaContent = document.getElementById('ideaContent');
+        const ideaTopicInput = document.getElementById('ideaTopic');
+
+        generateIdeaBtn.addEventListener('click', async () => {
+            const topic = ideaTopicInput.value.trim();
+            if (!topic) {
+                alertUser("Пожалуйста, введите тему или навык для генерации идей.", 'error');
+                return;
+            }
+
+            ideaBtnText.textContent = 'ГЕНЕРИРУЕМ...';
+            ideaBtnSpinner.classList.remove('hidden');
+            generateIdeaBtn.disabled = true;
+            generateIdeaBtn.classList.add('animate-pulse-strong');
+
+            try {
+                let chatHistory = [];
+                const prompt = `Предложи 3-4 идеи простых цифровых продуктов (электронные книги, чек-листы, шаблоны, мини-сборники советов) по теме или навыку '${topic}'. Для каждой идеи укажи: 1) Название продукта. 2) Краткое описание, какую проблему он решает. 3) Целевую аудиторию. Формат ответа строго в JSON массиве объектов, где каждый объект имеет ключи 'productName' (строка), 'problemSolved' (строка), и 'targetAudience' (строка).`;
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "productName": { "type": "STRING" },
+                                    "problemSolved": { "type": "STRING" },
+                                    "targetAudience": { "type": "STRING" }
+                                },
+                                "propertyOrdering": ["productName", "problemSolved", "targetAudience"]
+                            }
+                        }
+                    }
+                };
+                const apiKey = "AIzaSyCESsXjC52VYBP0bBqFxBIpW5_ulB3LwEQ"; // Canvas will provide this at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.text(); // Try to read response body for more details
+                    console.error(`HTTP error! Status: ${response.status}, Status Text: ${response.statusText}, Body: ${errorBody}`);
+                    alertUser(`Ошибка сети (${response.status}): ${response.statusText}. Пожалуйста, попробуйте позже.`, 'error');
+                    // Ensure output section is cleared or hidden if an error occurs
+                    ideaOutput.classList.add('hidden');
+                    return; // Exit function after handling HTTP error
+                }
+
+                const result = await response.json();
+                console.log("API Response for Idea Generator:", result);
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+
+                    const jsonString = result.candidates[0].content.parts[0].text;
+                    console.log("Parsed JSON string (Idea Generator):", jsonString);
+
+                    try {
+                        const parsedJson = JSON.parse(jsonString);
+                        console.log("Parsed JSON object (Idea Generator):", parsedJson);
+
+                        ideaContent.innerHTML = ''; // Clear previous ideas
+                        if (Array.isArray(parsedJson) && parsedJson.length > 0) {
+                            parsedJson.forEach(idea => {
+                                const ideaDiv = document.createElement('div');
+                                ideaDiv.className = 'mb-3 p-3 bg-white rounded-lg shadow-sm';
+                                ideaDiv.innerHTML = `
+                                    <h4 class="font-bold text-blue-700 text-lg md:text-xl mb-1">${idea.productName}</h4>
+                                    <p class="text-gray-700 text-base md:text-lg mb-1"><strong>Проблема решена:</strong> ${idea.problemSolved}</p>
+                                    <p class="text-gray-700 text-base md:text-lg"><strong>Для кого:</strong> ${idea.targetAudience}</p>
+                                `;
+                                ideaContent.appendChild(ideaDiv);
+                            });
+                            ideaOutput.classList.remove('hidden');
+                            ideaOutput.classList.add('is-visible');
+                            alertUser("Идеи цифровых продуктов сгенерированы!", 'success');
+                        } else {
+                            ideaContent.innerHTML = '<p class="text-red-500 text-base md:text-lg">Не удалось сгенерировать идеи в ожидаемом формате. Попробуйте еще раз.</p>';
+                            ideaOutput.classList.remove('hidden');
+                            ideaOutput.classList.add('is-visible');
+                            alertUser("Не удалось сгенерировать идеи. Попробуйте еще раз.", 'error');
+                        }
+
+                    } catch (parseError) {
+                        console.error("JSON parsing error (Idea Generator):", parseError);
+                        ideaContent.innerHTML = '<p class="text-red-500 text-base md:text-lg">Ошибка при обработке полученных данных. Попробуйте еще раз.</p>';
+                        ideaOutput.classList.remove('hidden');
+                        ideaOutput.classList.add('is-visible');
+                        alertUser("Ошибка обработки данных. Пожалуйста, попробуйте еще раз.", 'error');
+                    }
+
+                } else {
+                    console.error("Unexpected API response structure (Idea Generator):", result);
+                    ideaContent.innerHTML = '<p class="text-red-500 text-base md:text-lg">Не удалось получить идеи. Структура ответа ИИ не соответствует ожидаемой.</p>';
+                    ideaOutput.classList.remove('hidden');
+                    ideaOutput.classList.add('is-visible');
+                    alertUser("Не удалось получить идеи. Попробуйте еще раз.", 'error');
+                }
+
+            } catch (error) {
+                console.error("Error generating ideas:", error);
+                ideaContent.innerHTML = '<p class="text-red-500 text-base md:text-lg">Произошла ошибка при генерации идей. Проверьте ваше соединение или попробуйте позже.</p>';
+                ideaOutput.classList.remove('hidden');
+                ideaOutput.classList.add('is-visible');
+                alertUser("Ошибка генерации идей. Пожалуйста, попробуйте позже.", 'error');
+            } finally {
+                ideaBtnText.textContent = 'СГЕНЕРИРОВАТЬ ИДЕИ';
+                ideaBtnSpinner.classList.add('hidden');
+                generateIdeaBtn.disabled = false;
+                generateIdeaBtn.classList.remove('animate-pulse-strong');
+            }
+        });
+
+        // Initial setup on window load
+        window.onload = function() {
+            // Observe sections for scroll animations
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        };
+    </script>
+</body>
+</html>
